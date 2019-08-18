@@ -22,11 +22,11 @@ apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.android.devbyteviewer"
+        applicationId "maxeem.america.devbyteviewer"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -38,58 +38,41 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     dataBinding {
         enabled = true
     }
-
+    buildToolsVersion = '29.0.2'
 }
 
 dependencies {
+    kapt "androidx.room:room-compiler:2.1.0"
+    kapt "com.github.bumptech.glide:compiler:4.9.0"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
-
-    // Support libraries
-    implementation "androidx.appcompat:appcompat:$version_appcompat"
-    implementation "androidx.fragment:fragment:$version_fragment"
-    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
-
-    // Android KTX
-    implementation "androidx.core:core-ktx:$version_core"
-
-    // Navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
-    implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
-
-    // Coroutines for getting off the UI thread
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
-
-    // Retrofit for networking
-    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
-    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
-    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
-
-    // Moshi for parsing the JSON format
-    implementation "com.squareup.moshi:moshi:$version_moshi"
-    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
-
-    // Joda time library for dealing with time
-    implementation "joda-time:joda-time:$version_joda"
-
-    // ViewModel and LiveData (arch components)
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
-
-    // Logging
-    implementation "com.jakewharton.timber:timber:$version_timber"
-
-    // Glide for images
-    implementation "com.github.bumptech.glide:glide:$version_glide"
-
-    // Room database
-    implementation "androidx.room:room-runtime:$version_room"
-    kapt "androidx.room:room-compiler:$version_room"
-
-    // WorkManager
-    implementation "android.arch.work:work-runtime-ktx:$version_work"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'androidx.core:core-ktx:1.2.0-alpha03'
+    implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha02'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha03'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha03'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha03'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha03'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-alpha01'
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.2.0-alpha01'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-alpha01'
+    implementation "com.github.bumptech.glide:glide:4.9.0"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+    implementation "com.jakewharton.timber:timber:4.7.1"
+    implementation "com.squareup.moshi:moshi:1.8.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.6.1'
+    implementation "org.jetbrains.anko:anko-commons:0.10.8"
+    implementation "org.jetbrains.anko:anko-design:0.10.8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
+    // Testing dependencies
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+

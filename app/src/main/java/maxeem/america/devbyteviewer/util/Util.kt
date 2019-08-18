@@ -15,7 +15,7 @@
  *
  */
 
-package com.example.android.devbyteviewer.util
+package maxeem.america.devbyteviewer.util
 
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 

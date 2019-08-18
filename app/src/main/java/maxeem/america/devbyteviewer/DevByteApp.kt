@@ -15,24 +15,24 @@
  *
  */
 
-package com.example.android.devbyteviewer.ui
+package maxeem.america.devbyteviewer
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.example.android.devbyteviewer.R
+import android.app.Application
+import timber.log.Timber
 
 /**
- * This is a single activity application that uses the Navigation library. Content is displayed
- * by Fragments.
+ * Override application to setup background work via WorkManager
  */
-class DevByteActivity : AppCompatActivity() {
+class DevByteApp : Application() {
 
     /**
-     * Called when the activity is starting.  This is where most initialization
-     * should go
+     * onCreate is called before the first screen is shown to the user.
+     *
+     * Use it to setup any background tasks, running expensive setup operations in a background
+     * thread to avoid delaying app start.
      */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dev_byte_viewer)
+    override fun onCreate() {
+        super.onCreate()
+        Timber.plant(Timber.DebugTree())
     }
 }

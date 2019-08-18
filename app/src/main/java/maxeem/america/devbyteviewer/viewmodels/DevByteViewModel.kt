@@ -15,13 +15,13 @@
  *
  */
 
-package com.example.android.devbyteviewer.viewmodels
+package maxeem.america.devbyteviewer.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.android.devbyteviewer.domain.Video
-import com.example.android.devbyteviewer.network.Network
-import com.example.android.devbyteviewer.network.asDomainModel
+import maxeem.america.devbyteviewer.domain.Video
+import maxeem.america.devbyteviewer.network.Network
+import maxeem.america.devbyteviewer.network.asDomainModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

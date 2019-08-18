@@ -15,9 +15,9 @@
  *
  */
 
-package com.example.android.devbyteviewer.network
+package maxeem.america.devbyteviewer.network
 
-import com.example.android.devbyteviewer.domain.Video
+import maxeem.america.devbyteviewer.domain.Video
 import com.squareup.moshi.JsonClass
 
 /**
