@@ -23,7 +23,7 @@ import maxeem.america.devbyteviewer.app
 import maxeem.america.devbyteviewer.util.DATABASE_NAME
 
 @Dao
-interface VideoDao {
+interface VideosDao {
 
     @Query("SELECT * FROM videos")
     fun getAll(): LiveData<List<DatabaseVideo>?>
@@ -36,7 +36,7 @@ interface VideoDao {
 @Database(entities = [DatabaseVideo::class], version = 1, exportSchema = false )
 abstract class VideosDatabase : RoomDatabase() {
 
-    abstract val videoDao : VideoDao
+    abstract val videosDao : VideosDao
 
     companion object {
         val instance by lazy {

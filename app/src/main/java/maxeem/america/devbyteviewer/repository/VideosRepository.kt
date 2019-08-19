@@ -16,3 +16,26 @@
  */
 
 package maxeem.america.devbyteviewer.repository
+
+import androidx.lifecycle.Transformations
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import maxeem.america.devbyteviewer.database.VideosDatabase
+import maxeem.america.devbyteviewer.database.asDomainModel
+import maxeem.america.devbyteviewer.network.Network
+import maxeem.america.devbyteviewer.network.asDatabaseModel
+
+class VideosRepository(private val db : VideosDatabase) {
+
+    val videos = Transformations.map(db.videosDao.getAll()) {
+        it.asDomainModel()
+    }
+
+    suspend fun refreshVideos() {
+        withContext(Dispatchers.IO) {
+            val playlist = Network.devbytes.getPlaylistAsync().await()
+            db.videosDao.insertAll(*playlist.asDatabaseModel())
+        }
+    }
+
+}
