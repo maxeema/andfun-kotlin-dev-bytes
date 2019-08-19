@@ -20,19 +20,22 @@ package maxeem.america.devbyteviewer
 import android.app.Application
 import timber.log.Timber
 
-/**
- * Override application to setup background work via WorkManager
- */
+val app = DevByteApp.instance
+
 class DevByteApp : Application() {
 
-    /**
-     * onCreate is called before the first screen is shown to the user.
-     *
-     * Use it to setup any background tasks, running expensive setup operations in a background
-     * thread to avoid delaying app start.
-     */
+    companion object {
+        private lateinit var _instance: DevByteApp
+        val instance get() = _instance
+    }
+
+    init {
+        _instance = this
+    }
+
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
     }
+
 }

@@ -16,4 +16,3 @@
  */
 
 package maxeem.america.devbyteviewer.database
-

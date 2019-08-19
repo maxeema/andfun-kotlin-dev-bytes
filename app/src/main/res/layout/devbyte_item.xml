@@ -22,14 +22,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="video"
-            type="maxeem.america.devbyteviewer.domain.Video" />
-
-        <variable
-            name="videoCallback"
-            type="maxeem.america.devbyteviewer.ui.VideoClick" />
+        <variable name="video" type="maxeem.america.devbyteviewer.domain.Video" />
+        <variable name="videoCallback" type="maxeem.america.devbyteviewer.ui.VideoClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -127,5 +121,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
+
 </layout>

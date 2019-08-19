@@ -19,6 +19,7 @@ package maxeem.america.devbyteviewer.network
 
 import maxeem.america.devbyteviewer.domain.Video
 import com.squareup.moshi.JsonClass
+import maxeem.america.devbyteviewer.database.DatabaseVideo
 
 /**
  * DataTransferObjects go in this file. These are responsible for parsing responses from the server
@@ -53,8 +54,8 @@ data class NetworkVideo(
 /**
  * Convert Network results to database objects
  */
-fun NetworkVideoContainer.asDomainModel(): List<Video> {
-    return videos.map {
+fun NetworkVideoContainer.asDomainModel() =
+    videos.map {
         Video(
                 title = it.title,
                 description = it.description,
@@ -62,4 +63,3 @@ fun NetworkVideoContainer.asDomainModel(): List<Video> {
                 updated = it.updated,
                 thumbnail = it.thumbnail)
     }
-}
