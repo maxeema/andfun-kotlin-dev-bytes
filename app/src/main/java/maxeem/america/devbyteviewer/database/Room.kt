@@ -26,14 +26,14 @@ import maxeem.america.devbyteviewer.util.DATABASE_NAME
 interface VideosDao {
 
     @Query("SELECT * FROM videos")
-    fun getAll(): LiveData<List<DatabaseVideo>?>
+    fun getAll(): LiveData<List<DatabaseVideo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg videos: DatabaseVideo)
 
 }
 
-@Database(entities = [DatabaseVideo::class], version = 1, exportSchema = false )
+@Database(entities = [DatabaseVideo::class], version = 1)
 abstract class VideosDatabase : RoomDatabase() {
 
     abstract val videosDao : VideosDao

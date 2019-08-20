@@ -23,7 +23,6 @@
 
     <data>
         <variable name="video" type="maxeem.america.devbyteviewer.domain.Video" />
-        <variable name="videoCallback" type="maxeem.america.devbyteviewer.ui.VideoClick" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -115,7 +114,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="?attr/selectableItemBackground"
-                android:onClick="@{() -> videoCallback.onClick(video)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

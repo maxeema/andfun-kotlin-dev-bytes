@@ -44,7 +44,7 @@ class ListingFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner) { videos ->
+        viewModel.videos.observe(viewLifecycleOwner) { videos ->
             videos?.apply {
                 viewModelAdapter?.videos = videos
             }
@@ -57,59 +57,47 @@ class ListingFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModelAdapter = DevByteAdapter(VideoClick {
-            var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
+        viewModelAdapter = DevByteAdapter { val video = it.getTag(R.id.tag_video) as Video
+            var intent = Intent(Intent.ACTION_VIEW, video.launchUri)
             if (intent.resolveActivity(app.packageManager) == null) {
-                intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
+                intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
             }
             startActivity(intent)
-        })
-
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = viewModelAdapter
         }
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = viewModelAdapter
 
         return binding.root
     }
 
-    private val Video.launchUri: Uri
-        get() {
-            val httpUri = Uri.parse(url)
-            return Uri.parse("vnd.youtube:" + httpUri.getQueryParameter("v"))
-        }
+    private val Video.launchUri : Uri
+        get() = Uri.parse("vnd.youtube:" + Uri.parse(url).getQueryParameter("v"))
+
 }
 
-class VideoClick(val block: (Video) -> Unit) {
-    fun onClick(video: Video) = block(video)
-}
-
-class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
+class DevByteAdapter(private val play: (View) -> Unit) : RecyclerView.Adapter<DevByteViewHolder>() {
 
     var videos: List<Video> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+        set(value) { field = value;  notifyDataSetChanged() }
+
+    override fun getItemCount() = videos.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         DevByteViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), DevByteViewHolder.LAYOUT, parent, false))
 
-    override fun getItemCount() = videos.size
-
     override fun onBindViewHolder(holder: DevByteViewHolder, position: Int) {
-        holder.viewDataBinding.also {
-            it.video = videos[position]
-            it.videoCallback = callback
+        holder.viewDataBinding.apply {
+            video = videos[position]
+            root.setTag(R.id.tag_video, video)
+            clickableOverlay.setOnClickListener(play)
         }
     }
 
 }
 
-class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root) {
+class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
-        @LayoutRes
-        val LAYOUT = R.layout.devbyte_item
+        @LayoutRes val LAYOUT = R.layout.devbyte_item
     }
 }

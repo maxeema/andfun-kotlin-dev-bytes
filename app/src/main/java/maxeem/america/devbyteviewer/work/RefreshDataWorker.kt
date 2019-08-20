@@ -15,28 +15,27 @@
  *
  */
 
-package maxeem.america.devbyteviewer.viewmodels
+package maxeem.america.devbyteviewer.work
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import android.content.Context
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
 import maxeem.america.devbyteviewer.database.VideosDatabase
 import maxeem.america.devbyteviewer.repository.VideosRepository
 
-class DevByteViewModel : ViewModel() {
+class RefreshDataWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, params) {
 
-    private val repo = VideosRepository(VideosDatabase.instance)
-
-    init {
-        viewModelScope.launch {
-            runCatching {
-                repo.refreshVideos()
-            }.onFailure {
-                it.printStackTrace()
-            }
-        }
+    companion object {
+            const val WORK_NAME = "RefreshDataWorker"
     }
 
-    val videos = repo.videos
+    override suspend fun doWork() =
+            runCatching {
+                VideosRepository(VideosDatabase.instance).refreshVideos()
+                Result.success()
+            }.getOrElse {
+                it.printStackTrace()
+                Result.retry()
+            }
 
 }
