@@ -15,9 +15,12 @@
  *
  */
 
-package maxeem.america.devbyteviewer.domain
+package maxeem.america.devbytes.domain
 
-import maxeem.america.devbyteviewer.util.smartTruncate
+import android.text.format.DateUtils.*
+import maxeem.america.devbytes.app
+import maxeem.america.devbytes.util.smartTruncate
+import java.text.SimpleDateFormat
 
 /**
  * Domain objects are plain Kotlin data classes that represent the things in our app. These are the
@@ -36,9 +39,16 @@ data class Video(val title: String,
                  val updated: String,
                  val thumbnail: String) {
 
-    /**
-     * Short description is used for displaying truncated descriptions in the UI
-     */
+    private companion object {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+    }
+
+    val date : String?
+        get() {
+            val millis = dateFormat.parse(updated)?.time ?: return null
+            return formatDateTime(app, millis, FORMAT_SHOW_DATE or FORMAT_SHOW_YEAR or FORMAT_ABBREV_ALL)
+        }
+
     val shortDescription: String
         get() = description.smartTruncate(200)
 }

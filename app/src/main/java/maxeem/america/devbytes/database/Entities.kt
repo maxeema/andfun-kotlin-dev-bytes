@@ -15,11 +15,11 @@
  *
  */
 
-package maxeem.america.devbyteviewer.database
+package maxeem.america.devbytes.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import maxeem.america.devbyteviewer.domain.Video
+import maxeem.america.devbytes.domain.Video
 
 @Entity(tableName = "videos")
 data class DatabaseVideo(

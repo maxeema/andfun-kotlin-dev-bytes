@@ -15,11 +15,11 @@
  *
  */
 
-package maxeem.america.devbyteviewer.network
+package maxeem.america.devbytes.network
 
 import com.squareup.moshi.JsonClass
-import maxeem.america.devbyteviewer.database.DatabaseVideo
-import maxeem.america.devbyteviewer.domain.Video
+import maxeem.america.devbytes.database.DatabaseVideo
+import maxeem.america.devbytes.domain.Video
 
 @JsonClass(generateAdapter = true)
 data class NetworkVideoContainer(val videos: List<NetworkVideo>)
@@ -33,22 +33,24 @@ data class NetworkVideo(
         val thumbnail: String,
         val closedCaptions: String?)
 
-fun NetworkVideoContainer.asDomainModel() =
-    videos.map {
-        Video(
-                title = it.title,
-                description = it.description,
-                url = it.url,
-                updated = it.updated,
-                thumbnail = it.thumbnail)
-    }
-
 fun NetworkVideoContainer.asDatabaseModel() =
-    videos.map {
-        DatabaseVideo (
-                title = it.title,
-                description = it.description,
-                url = it.url,
-                updated = it.updated,
-                thumbnail = it.thumbnail)
-    }.toTypedArray()
+        videos.map {
+            DatabaseVideo (
+                    title = it.title,
+                    description = it.description,
+                    url = it.url,
+                    updated = it.updated,
+                    thumbnail = it.thumbnail)
+        }.toTypedArray()
+
+fun NetworkVideoContainer.asDomainModel() =
+        videos.map {
+            Video(
+                    title = it.title,
+                    description = it.description,
+                    url = it.url,
+                    updated = it.updated,
+                    thumbnail = it.thumbnail)
+        }
+
+

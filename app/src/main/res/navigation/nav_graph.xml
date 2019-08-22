@@ -24,6 +24,6 @@
 
     <fragment
         android:id="@+id/listingFrag"
-        android:name="maxeem.america.devbyteviewer.ui.ListingFragment"
+        android:name="maxeem.america.devbytes.ui.ListingFragment"
         tools:layout="@layout/fragment_listing" />
 </navigation>

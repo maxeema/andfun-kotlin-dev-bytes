@@ -15,19 +15,16 @@
  *
  */
 
-package maxeem.america.devbyteviewer.util
+package maxeem.america.devbytes.ui
 
-import android.view.View
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import maxeem.america.devbytes.R
 
-@BindingAdapter("goneIfNotNull")
-fun View.goneIfNotNull(it: Any?) {
-    visibility = if (it != null) View.GONE else View.VISIBLE
-}
+class MainActivity : AppCompatActivity() {
 
-@BindingAdapter("imageUrl")
-fun ImageView.setImageUrl(url: String) {
-    Glide.with(context).load(url).into(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
 }

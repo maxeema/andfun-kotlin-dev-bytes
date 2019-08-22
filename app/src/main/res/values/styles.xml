@@ -17,12 +17,31 @@
 
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+
+<!--        <item name="actionOverflowButtonStyle">@style/actionbarOverflowButton</item>-->
+
+        <item name="snackbarStyle">@style/snackbar</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
+    </style>
+
+<!--    <style name="actionbarOverflowButton" parent="Widget.AppCompat.ActionButton.Overflow">-->
+<!--        <item name="android:contentDescription"/>-->
+<!--    </style>-->
+
+    <style name="snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="android:layout_margin"/>
+        <item name="android:layout_marginTop">@dimen/snackbar_margin_horizontal</item>
+        <item name="android:layout_marginBottom">@dimen/snackbar_margin_horizontal</item>
+        <item name="android:layout_marginStart">@dimen/snackbar_margin_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/snackbar_margin_vertical</item>
     </style>
 
 </resources>

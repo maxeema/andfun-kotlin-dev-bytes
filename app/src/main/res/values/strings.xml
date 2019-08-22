@@ -16,5 +16,15 @@
   -->
 
 <resources>
-    <string name="app_name">DevByte Viewer</string>
+    <string name="app_name">DevBytes</string>
+    <string name="app_title">Android DevBytes</string>
+    <string name="no_connection">Can\'t update. Check connection and retry.</string>
+    <string name="no_connection_tap">No Connection. Check Internet.\nTap icon to retry.</string>
+    <string name="some_error">Sorry, an error occurred</string>
+    <string name="some_error_tap">An error occurred. Tap to retry.</string>
+    <string name="retry">Retry</string>
+    <string name="details">Details</string>
+    <string name="stat_videos_msg">Videos: %d</string>
+    <string name="stat_update_msg">Updated: %s (%d)</string>
+    <string name="close">Close</string>
 </resources>

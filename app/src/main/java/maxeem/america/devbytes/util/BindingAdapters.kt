@@ -15,28 +15,24 @@
  *
  */
 
-package maxeem.america.devbyteviewer.viewmodels
+package maxeem.america.devbytes.util
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import maxeem.america.devbyteviewer.database.VideosDatabase
-import maxeem.america.devbyteviewer.repository.VideosRepository
+import android.view.View
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 
-class DevByteViewModel : ViewModel() {
+@BindingAdapter("visibleOn")
+fun View.visibleOn(it: Boolean) {
+    visibility = if (it) View.VISIBLE else View.INVISIBLE
+}
 
-    private val repo = VideosRepository(VideosDatabase.instance)
+@BindingAdapter("srcOf")
+fun ImageView.srcOf(url: String) {
+    Glide.with(context).load(url).into(this)
+}
 
-    init {
-        viewModelScope.launch {
-            runCatching {
-                repo.refreshVideos()
-            }.onFailure {
-                it.printStackTrace()
-            }
-        }
-    }
-
-    val videos = repo.videos
-
+@BindingAdapter("goneIfNotNull")
+fun View.goneIfNotNull(it: Any?) {
+    visibility = if (it != null) View.GONE else View.VISIBLE
 }

@@ -15,16 +15,26 @@
  *
  */
 
-package maxeem.america.devbyteviewer.ui
+package maxeem.america.devbytes.database
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import maxeem.america.devbyteviewer.R
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import maxeem.america.devbytes.app
+import maxeem.america.devbytes.util.DATABASE_NAME
 
-class MainActivity : AppCompatActivity() {
+@Database(entities = [DatabaseVideo::class], version = 1)
+abstract class DevBytesDatabase : RoomDatabase() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    abstract val videosDao : Dao
+
+    companion object {
+        val instance by lazy {
+            Room.databaseBuilder(app, DevBytesDatabase::class.java, DATABASE_NAME).run {
+                fallbackToDestructiveMigration()
+                build()
+            }
+        }
     }
+
 }
