@@ -20,8 +20,8 @@ package maxeem.america.devbytes.database
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import maxeem.america.devbytes.util.Conf
 import maxeem.america.devbytes.app
-import maxeem.america.devbytes.util.DATABASE_NAME
 
 @Database(entities = [DatabaseVideo::class], version = 1)
 abstract class DevBytesDatabase : RoomDatabase() {
@@ -30,7 +30,7 @@ abstract class DevBytesDatabase : RoomDatabase() {
 
     companion object {
         val instance by lazy {
-            Room.databaseBuilder(app, DevBytesDatabase::class.java, DATABASE_NAME).run {
+            Room.databaseBuilder(app, DevBytesDatabase::class.java, Conf.Database.NAME).run {
                 fallbackToDestructiveMigration()
                 build()
             }

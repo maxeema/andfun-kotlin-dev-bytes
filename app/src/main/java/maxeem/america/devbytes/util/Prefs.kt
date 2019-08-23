@@ -39,7 +39,7 @@ object Prefs : AnkoLogger {
     private fun dumpState() {
         info(" syncCount: $syncCount \n" +
                 " lastSync: ${Date(lastSync)}\n" +
-                " nextSync: ${Date(lastSync+ DEVBYTES_SYNC_INTERVAL_TIME_UNIT.toMillis(DEVBYTES_SYNC_INTERVAL_VALUE))} - we await =)")
+                " nextSync: ${Date(lastSync+ Conf.DevBytes.SYNC_TIME_UNIT.toMillis(Conf.DevBytes.SYNC_INTERVAL))} - we await =)")
     }
 
 }

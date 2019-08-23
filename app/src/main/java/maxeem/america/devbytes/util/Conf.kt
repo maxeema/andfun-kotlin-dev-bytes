@@ -8,10 +8,16 @@ import java.util.concurrent.TimeUnit.MINUTES
  * Conf & Const values
  */
 
-const val DATABASE_NAME = "devbytes-db"
-
-const val DEVBYTES_BASE_URL = "https://devbytes.udacity.com/"
-      val DEVBYTES_SYNC_INTERVAL_VALUE     = if (DEBUG) 45L else 3
-      val DEVBYTES_SYNC_INTERVAL_TIME_UNIT = if (DEBUG) MINUTES else DAYS
+object Conf {
+      object Database {
+            const val NAME = "devbytes-db"
+      }
+      object DevBytes {
+            const val BASE_URL = "https://devbytes.udacity.com" // "https://android-kotlin-fun-mars-server.appspot.com"
+            const val PLAYLIST = "devbytes.json" // "devbytes"
+                  val SYNC_INTERVAL  = if (DEBUG) 30L else 3
+                  val SYNC_TIME_UNIT = if (DEBUG) MINUTES else DAYS
+      }
+}
 
 

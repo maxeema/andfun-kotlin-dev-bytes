@@ -24,8 +24,7 @@ import maxeem.america.devbytes.database.DevBytesDatabase
 import maxeem.america.devbytes.database.asDomainModel
 import maxeem.america.devbytes.network.Network
 import maxeem.america.devbytes.network.asDatabaseModel
-import maxeem.america.devbytes.util.DEVBYTES_SYNC_INTERVAL_TIME_UNIT
-import maxeem.america.devbytes.util.DEVBYTES_SYNC_INTERVAL_VALUE
+import maxeem.america.devbytes.util.Conf
 import maxeem.america.devbytes.util.Prefs
 import maxeem.america.devbytes.util.thread
 import maxeem.america.devbytes.work.RefreshDataWorker
@@ -43,7 +42,7 @@ class VideosRepository(private val db : DevBytesDatabase) : AnkoLogger {
             db.videosDao.insertAll(*distinct.toTypedArray())
             info("refresh videos, got size: ${playlist.videos.size}, distinct size: ${distinct.size}, on $thread")
             Prefs.syncEvent.postValue(System.currentTimeMillis())
-            RefreshDataWorker.setDelayedWork(DEVBYTES_SYNC_INTERVAL_VALUE, DEVBYTES_SYNC_INTERVAL_TIME_UNIT)
+            RefreshDataWorker.setDelayedWork(Conf.DevBytes.SYNC_INTERVAL, Conf.DevBytes.SYNC_TIME_UNIT)
         }
     }
 

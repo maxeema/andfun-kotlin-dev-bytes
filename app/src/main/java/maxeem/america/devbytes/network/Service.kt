@@ -21,14 +21,14 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
-import maxeem.america.devbytes.util.DEVBYTES_BASE_URL
+import maxeem.america.devbytes.util.Conf
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 interface DevBytesService {
 
-    @GET("devbytes.json")
+    @GET(Conf.DevBytes.PLAYLIST)
     fun getPlaylistAsync(): Deferred<NetworkVideoContainer>
 
 }
@@ -37,7 +37,7 @@ object Network {
 
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     private val retrofit = Retrofit.Builder()
-            .baseUrl(DEVBYTES_BASE_URL)
+            .baseUrl(Conf.DevBytes.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
