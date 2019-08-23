@@ -76,7 +76,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/right_well"
                 app:layout_constraintStart_toEndOf="@+id/play_icon"
                 app:layout_constraintTop_toBottomOf="@id/thumbnail"
-                tools:text="What's New in Android" />
+                tools:text="Android Developer News" />
 
             <TextView
                 android:id="@+id/description"
@@ -92,7 +92,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/right_well"
                 app:layout_constraintStart_toStartOf="@+id/left_well"
                 app:layout_constraintTop_toBottomOf="@+id/title"
-                tools:text="this is a video @android:string/fingerprint_icon_content_description" />
+                tools:text="Keep up to date with what's going on in the Android universe: every source; one place." />
 
             <ImageView
                 android:id="@+id/thumbnail"
