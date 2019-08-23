@@ -24,6 +24,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     defaultConfig {
+        resConfigs "en"
         applicationId "maxeem.america.devbytes"
         minSdkVersion 21
         targetSdkVersion 29
