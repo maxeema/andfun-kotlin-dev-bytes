@@ -14,7 +14,7 @@ periodic work. In this app it's used to setup a daily background data sync.
 
 ## Screenshots
 
-![Screenshot1](screenshots/devbyte-homescreen.png)
+![Screenshot1](screenshots/screen_1.png) ![Screenshot2](screenshots/screen_2.png)
 
 
 ## How to use this repo while taking the course
