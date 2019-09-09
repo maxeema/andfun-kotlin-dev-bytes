@@ -26,4 +26,14 @@
         android:id="@+id/listingFrag"
         android:name="maxeem.america.devbytes.ui.ListingFragment"
         tools:layout="@layout/fragment_listing" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="maxeem.america.devbytes.ui.AboutFragment" >
+        <action
+            android:id="@+id/action_aboutFragment_pop"
+            app:popUpTo="@id/aboutFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action android:id="@+id/action_global_aboutFragment" app:destination="@id/aboutFragment"/>
+
 </navigation>

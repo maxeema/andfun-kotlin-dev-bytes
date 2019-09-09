@@ -17,25 +17,37 @@
 
 package maxeem.america.devbytes.database
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import maxeem.america.devbytes.domain.Video
 
 @Entity(tableName = "videos")
-data class DatabaseVideo(
+open class DatabaseVideo(
         @PrimaryKey
-        val url: String,
-        val updated: String,
-        val title: String,
-        val description: String,
-        val thumbnail: String)
+        val url: String,         // "https://www.youtube.com/watch?v=sYGKUtM2ga8"
+        val updated: String,     // "2018-06-07T17:09:43+00:00",
+        val title: String,       // "Android Jetpack: EmojiCompat"
+        val thumbnail: String,   // "https://i4.ytimg.com/vi/sYGKUtM2ga8/hqdefault.jpg"
+        val description: String) // "With the EmojiCompat library, part of Jetpack, your app can ..."
 
-fun List<DatabaseVideo>.asDomainModel() =
+class DatabaseVideoQuery(
+        @ColumnInfo(name="rowid")
+        val id: Long,
+        url: String,
+        updated: String,
+        title: String,
+        thumbnail: String,
+        description: String)
+    : DatabaseVideo(url, updated, title, thumbnail, description)
+
+fun List<DatabaseVideoQuery>.asDomainModel() =
     map {
         Video (
+                id = it.id,
                 url = it.url,
+                updated = it.updated,
                 title = it.title,
                 description = it.description,
-                updated = it.updated,
                 thumbnail = it.thumbnail)
     }

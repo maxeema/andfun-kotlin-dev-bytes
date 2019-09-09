@@ -20,8 +20,11 @@ package maxeem.america.devbytes
 import android.app.Application
 import android.os.Handler
 import maxeem.america.devbytes.util.Prefs
+import maxeem.america.devbytes.util.hash
+import maxeem.america.devbytes.util.timeMillis
 import maxeem.america.devbytes.work.RefreshDataWorker
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 val app = DevBytesApp.instance
 
@@ -33,6 +36,7 @@ class DevBytesApp : Application(), AnkoLogger {
     }
 
     init {
+        info("pid: ${android.os.Process.myPid()} - $hash $timeMillis init")
         _instance = this
     }
 
@@ -48,3 +52,5 @@ class DevBytesApp : Application(), AnkoLogger {
 }
 
 val DevBytesApp.handler by lazy { Handler(app.mainLooper) }
+val DevBytesApp.packageInfo
+    get() = packageManager.getPackageInfo(packageName, 0)

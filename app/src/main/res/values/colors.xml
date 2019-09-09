@@ -16,17 +16,19 @@
   ~
   -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#222</color>
-    <color name="colorPrimaryDark">#222</color>
-    <color name="colorAccent">#DD2C00</color>
+<resources>
 
-    <color name="colorBackground">#323232</color>
+    <color name="background">#323232</color>
 
-    <color name="colorTitle">#43A047</color>
-    <color name="colorTitleLine">#2E7D32</color>
+    <color name="primary">#DD2C00</color>
+    <color name="primaryVariant">#c43c00</color>
+    <color name="primaryDark">#222222</color>
+    <color name="onPrimary">#000000</color>
 
-    <color name="colorBottomAppbar">@color/colorPrimary</color>
+    <color name="secondary">#3ddc84</color>
+    <color name="secondaryVariant">#22B162</color>
+    <color name="onSecondary">#000000</color>
 
-    <color name="design_snackbar_background_color" tools:override="true">@color/colorAccent</color>
+    <color name="accent">#00B8D4</color>
+
 </resources>

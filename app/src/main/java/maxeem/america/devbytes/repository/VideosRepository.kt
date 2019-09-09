@@ -17,8 +17,10 @@
 
 package maxeem.america.devbytes.repository
 
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import maxeem.america.devbytes.database.DevBytesDatabase
 import maxeem.america.devbytes.database.asDomainModel
@@ -26,24 +28,41 @@ import maxeem.america.devbytes.network.Network
 import maxeem.america.devbytes.network.asDatabaseModel
 import maxeem.america.devbytes.util.Conf
 import maxeem.america.devbytes.util.Prefs
+import maxeem.america.devbytes.util.pid
 import maxeem.america.devbytes.util.thread
 import maxeem.america.devbytes.work.RefreshDataWorker
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class VideosRepository(private val db : DevBytesDatabase) : AnkoLogger {
+class VideosRepository private constructor() : AnkoLogger {
 
-    val videos = Transformations.map(db.videosDao.getAll()) { it.asDomainModel() }
-
-    suspend fun refreshVideos() {
-        withContext(Dispatchers.IO) {
-            val playlist = Network.devbytes.getPlaylistAsync().await()
-            val distinct = playlist.asDatabaseModel().distinctBy { it.url }
-            db.videosDao.insertAll(*distinct.toTypedArray())
-            info("refresh videos, got size: ${playlist.videos.size}, distinct size: ${distinct.size}, on $thread")
-            Prefs.syncEvent.postValue(System.currentTimeMillis())
-            RefreshDataWorker.setDelayedWork(Conf.DevBytes.SYNC_INTERVAL, Conf.DevBytes.SYNC_TIME_UNIT)
+    companion object {
+        val instance by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            VideosRepository()
         }
     }
+
+    private val db = DevBytesDatabase.instance
+    private val mutex = Mutex()
+
+    val videos = db.videosDao.getAll().map { it.asDomainModel() }
+
+    suspend fun refreshVideos(byWhom: String) {
+        info("$pid refresh videos by '$byWhom', mutex is ${if (mutex.isLocked) "locked" else "unlocked" }, on $thread")
+        mutex.withLock {
+            info("  mutex lock's acquired by '$byWhom' on $thread")
+            refreshVideosImpl()
+        }
+    }
+    private suspend fun refreshVideosImpl() = withContext(Dispatchers.IO) {
+        val playlist = Network.devbytes.getPlaylistAsync().await()
+        val distinct = playlist.asDatabaseModel().distinctBy { it.url }
+        val ids = db.videosDao.insertAll(*distinct.toTypedArray())
+        Prefs.syncEvent.postValue(System.currentTimeMillis())
+        RefreshDataWorker.setDelayedWork(Conf.DevBytes.SYNC_INTERVAL, Conf.DevBytes.SYNC_TIME_UNIT)
+        info(" got size: ${playlist.videos.size}," +
+                " distinct size: ${distinct.size}, on $thread" +
+                    "\n $db \n ${db.videosDao} \n inserted ids: $ids")
+    }.let { Unit }
 
 }

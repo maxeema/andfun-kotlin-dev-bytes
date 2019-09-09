@@ -17,33 +17,42 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+<item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/background</item>
         <item name="fontFamily">@font/inder</item>
+        <item name="android:fontFamily">@font/inder</item>
 
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
 
-<!--        <item name="actionOverflowButtonStyle">@style/actionbarOverflowButton</item>-->
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondaryVariant</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+
+        <item name="colorSurface">@color/primaryDark</item>
+        <item name="colorOnSurface">@color/accent</item>
 
         <item name="snackbarStyle">@style/snackbar</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
         <item name="snackbarButtonStyle">?attr/borderlessButtonStyle</item>
     </style>
 
-<!--    <style name="actionbarOverflowButton" parent="Widget.AppCompat.ActionButton.Overflow">-->
-<!--        <item name="android:contentDescription"/>-->
-<!--    </style>-->
+    <style name="AppbarTheme" parent="AppTheme">
+        <item name="colorSurface">@color/primaryDark</item>
+        <item name="colorOnSurface">@color/secondary</item>
+    </style>
 
     <style name="snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="animationMode">slide</item>
         <item name="android:layout_margin"/>
-        <item name="android:layout_marginTop">@dimen/snackbar_margin_horizontal</item>
-        <item name="android:layout_marginBottom">@dimen/snackbar_margin_horizontal</item>
-        <item name="android:layout_marginStart">@dimen/snackbar_margin_vertical</item>
-        <item name="android:layout_marginEnd">@dimen/snackbar_margin_vertical</item>
+        <item name="android:layout_marginTop">@dimen/snackbar_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/snackbar_margin_vertical</item>
+        <item name="android:layout_marginStart">@dimen/snackbar_margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/snackbar_margin_horizontal</item>
     </style>
 
 </resources>

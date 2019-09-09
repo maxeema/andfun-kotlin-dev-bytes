@@ -16,8 +16,21 @@
   -->
 
 <resources>
-    <string name="app_name">DevBytes</string>
-    <string name="app_title">Android DevBytes</string>
+    <string name="app_name">Android DevBytes</string>
+    <string name="app_title">DevBytes</string>
+    <string name="app_author">© Maxeem America, 2019</string>
+    <string name="app_description" formatted="false">
+        <![CDATA[
+            Made by taking <a href="https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012">Udacity course</a>
+            <br/><br/>
+            App <a href="https://github.com/maxeema/andfun-kotlin-dev-bytes/tree/work">GitHub page</a>
+        ]]>
+    </string>
+    <string name="author_email">Maxeem.America@gmail.com</string>
+    <string name="email_subject">Hello Max! From \"%s\" app.</string>
+    <string name="app_on_google_play">See on Google Play</string>
+    <string name="about">About</string>
+
     <string name="no_connection">Can\'t update. Check connection and retry.</string>
     <string name="no_connection_tap">No Connection. Check Internet.\nTap icon to retry.</string>
     <string name="some_error">Sorry, an error occurred</string>

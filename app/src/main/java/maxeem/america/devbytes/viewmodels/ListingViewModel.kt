@@ -17,12 +17,17 @@
 
 package maxeem.america.devbytes.viewmodels
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import maxeem.america.devbytes.database.DevBytesDatabase
 import maxeem.america.devbytes.network.NetworkApiStatus
 import maxeem.america.devbytes.repository.VideosRepository
 import maxeem.america.devbytes.util.Prefs
+import maxeem.america.devbytes.util.asImmutable
+import maxeem.america.devbytes.util.asMutable
 import maxeem.america.devbytes.util.thread
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
@@ -30,35 +35,49 @@ import org.jetbrains.anko.info
 
 class ListingViewModel : ViewModel(), AnkoLogger {
 
-    private val repo = VideosRepository(DevBytesDatabase.instance)
+    private val repo = VideosRepository.instance
 
-    val videos = repo.videos
-    val hasData = videos.map { it.isNotEmpty() }
+    val videos  = repo.videos
+    val hasData = videos.map { !it.isNullOrEmpty() }
 
-    private val _status = MutableLiveData<NetworkApiStatus?>()
-    val status : LiveData<NetworkApiStatus?> = _status
+    val status = MutableLiveData<NetworkApiStatus?>().asImmutable()
+    val statusEvent = status.map { it }
+    fun consumeStatusEvent() { statusEvent.asMutable().value = null }
 
-    val lastSync = Prefs.syncEvent.map { Prefs.lastSync }
+    val lastSync  = Prefs.syncEvent.map { Prefs.lastSync }
     val syncCount = Prefs.syncEvent.map { Prefs.syncCount }
 
     init {
+        info("init, hasSync: ${Prefs.hasSync}, syncCount: ${Prefs.syncCount}, lastSync: ${Prefs.lastSync}")
         if (!Prefs.hasSync)
             refresh()
     }
 
-    fun refresh() { refreshImpl() }
-
-    private fun refreshImpl() = viewModelScope.launch {
-        _status.value = NetworkApiStatus.Loading
-        runCatching {
-            info("call refreshVideos from UI, on $thread")
-            repo.refreshVideos()
-            info("call refreshVideos from UI - success")
-            _status.value = NetworkApiStatus.Success
-        }.onFailure { err ->
-            error("call refreshVideos from UI - error", err)
-            _status.value = NetworkApiStatus.Error.of(err)
+    fun refresh() {
+        viewModelScope.launch {
+            refreshImpl()
         }
+    }
+
+    private suspend fun refreshImpl() {
+        info("call refreshVideos from UI, on $thread")
+        status.asMutable().value = NetworkApiStatus.Loading
+        runCatching {
+            delay(200)
+            repo.refreshVideos("listing model")
+            delay(200)
+        }.onSuccess {
+            info("call refreshVideos from UI - success, on $thread")
+            status.asMutable().value = NetworkApiStatus.Success
+        }.onFailure { err ->
+            error("call refreshVideos from UI - error, on $thread", err)
+            status.asMutable().value = NetworkApiStatus.Error.of(err)
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        info("onCleared()")
     }
 
 }

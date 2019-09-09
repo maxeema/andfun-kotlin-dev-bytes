@@ -20,8 +20,8 @@ package maxeem.america.devbytes.work
 import android.content.Context
 import android.text.format.DateUtils
 import androidx.work.*
-import maxeem.america.devbytes.database.DevBytesDatabase
 import maxeem.america.devbytes.repository.VideosRepository
+import maxeem.america.devbytes.util.pid
 import maxeem.america.devbytes.util.thread
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -29,10 +29,12 @@ import java.util.concurrent.TimeUnit
 
 class RefreshDataWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, params), AnkoLogger {
 
+    private val repo = VideosRepository.instance
+
     override suspend fun doWork() =
         runCatching {
-            info("doWork - begin, call refreshVideos from Worker, on $thread")
-            VideosRepository(DevBytesDatabase.instance).refreshVideos()
+            info("$pid doWork - begin, call refreshVideos from Worker, on $thread")
+            repo.refreshVideos("worker")
             info("doWork - success")
             Result.success()
         }.getOrElse { err ->

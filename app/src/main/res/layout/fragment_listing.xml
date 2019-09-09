@@ -35,31 +35,10 @@
         android:fitsSystemWindows="true"
         app:statusBarBackground="@null">
 
-        <com.google.android.material.appbar.AppBarLayout
-            visibleOn="@{ model.hasData }"
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                app:title="@string/app_title"
-                app:titleTextColor="@color/colorTitle"
-                app:layout_scrollFlags="enterAlwaysCollapsed|scroll|snap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorTitleLine"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/refresh"
-            android:enabled="@{ !busy &amp;&amp; model.hasData }"
+            android:enabled="@{ !busy &amp;&amp; model.hasData.booleanValue() }"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -76,6 +55,25 @@
                 app:spanCount="@integer/grid_spans"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:theme="@style/AppbarTheme"
+            android:id="@+id/appbar"
+            app:liftOnScroll="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                app:popupTheme="@style/AppTheme"
+                style="@style/Widget.MaterialComponents.Toolbar.Surface"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                android:id="@+id/toolbar"
+                app:title="@string/app_name"
+                app:menu="@menu/main_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout
             visibleOn="@{!busy &amp;&amp; !model.hasData &amp;&amp; model.status instanceof NetworkApiStatus.Error}"
@@ -112,7 +110,6 @@
         <com.google.android.material.bottomappbar.BottomAppBar
             visibleOn="@{ model.hasData }"
             app:hideOnScroll="true"
-            app:backgroundTint="@color/colorBottomAppbar"
             android:id="@+id/bottom_appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,9 +118,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="6dp" android:paddingBottom="6dp"
                 android:paddingStart="10dp" android:paddingEnd="10dp"
-                android:alpha=".7" android:scaleY=".9" android:scaleX=".9">
+                android:alpha=".5">
 
                 <TextSwitcher
                     android:layout_alignParentStart="true"
@@ -132,10 +128,12 @@
                     android:layout_height="wrap_content"
                     android:inAnimation="@android:anim/fade_in">
                     <TextView
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                         tools:text="@string/stat_videos_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </TextSwitcher>
@@ -147,10 +145,12 @@
                     android:layout_height="wrap_content"
                     android:inAnimation="@android:anim/fade_in">
                     <TextView
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                         tools:text="@string/stat_update_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </TextSwitcher>

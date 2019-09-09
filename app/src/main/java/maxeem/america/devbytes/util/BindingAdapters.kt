@@ -19,6 +19,7 @@ package maxeem.america.devbytes.util
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
@@ -35,4 +36,9 @@ fun ImageView.srcOf(url: String) {
 @BindingAdapter("goneIfNotNull")
 fun View.goneIfNotNull(it: Any?) {
     visibility = if (it != null) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter("textHtml")
+fun TextView.textHtml(str: String) {
+    text = str.fromHtml()
 }

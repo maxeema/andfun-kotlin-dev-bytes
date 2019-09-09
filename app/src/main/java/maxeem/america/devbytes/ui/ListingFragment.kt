@@ -24,12 +24,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.core.net.toUri
 import androidx.databinding.ObservableBoolean
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import maxeem.america.devbytes.R
@@ -39,31 +38,36 @@ import maxeem.america.devbytes.domain.Video
 import maxeem.america.devbytes.network.NetworkApiStatus
 import maxeem.america.devbytes.util.*
 import maxeem.america.devbytes.viewmodels.ListingViewModel
-import org.jetbrains.anko.*
 import org.jetbrains.anko.design.longSnackbar
+import org.jetbrains.anko.dip
+import org.jetbrains.anko.info
 
-class ListingFragment : Fragment(), AnkoLogger {
+class ListingFragment : BaseFragment() {
 
     private val model: ListingViewModel by viewModels()
     private lateinit var binding : FragmentListingBinding
 
-    private val busy = ObservableBoolean(true)
+    private val busy = ObservableBoolean(false)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        info("$timeMillis $hash onCreateView")
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_listing, container, false)
+        info("$timeMillis $hash onCreateView, savedInstanceState: $savedInstanceState")
 
-        compatActivity()?.setSupportActionBar(binding.toolbar)
+        binding = FragmentListingBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.model = model
         binding.busy = busy
 
+        binding.toolbar.setOnMenuItemClickListener {
+            findNavController().navigate(AboutFragmentDirections.actionGlobalAboutFragment())
+            true
+        }
+
         binding.refresh.setOnRefreshListener(::refreshVideos)
 
         val adapter = ListingAdapter(::playVideo)
         binding.recycler.addItemDecoration(object: RecyclerView.ItemDecoration() {
-            val gap = context!!.dip(8); val spanCount = (binding.recycler.layoutManager as GridLayoutManager).spanCount
+            val gap = app.dip(8); val spanCount = (binding.recycler.layoutManager as GridLayoutManager).spanCount
             override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 if (spanCount == 1) {
                     super.getItemOffsets(outRect, view, parent, state)
@@ -75,31 +79,31 @@ class ListingFragment : Fragment(), AnkoLogger {
         binding.recycler.adapter = adapter
 
         model.videos.observe(viewLifecycleOwner) { videos ->
-            if (videos.isNullOrEmpty()) return@observe
-            // Note, that this callback could be from user swipe-to-refresh action or RefreshDataWorker job by WorkManager
-            if (busy.get()) // on user interaction clear list fully and fill it with the last data again
-                adapter.submitList(emptyList())
-            else
-                busy.set(true) // in case of WorkManager job we just merge data within current in adapter, but in reality it is very rare case =)
-            compatActivity()?.delayed(100) {
-                binding.recycler.itemAnimator?.isRunning {
-                    if (lifecycle.currentState < Lifecycle.State.CREATED) return@isRunning
-                    adapter.submitList(videos)
-                    compatActivity()?.delayed(500) {
-                        binding.recycler.itemAnimator?.isRunning(::setNotBusy)
-                    }
-                }
-            }
+            info("observe videos, size: ${videos?.size}, ids: ${videos.map { it.id }}" +
+                    "\n status: ${model.status.value}, statusEvent: ${model.statusEvent.value}")
+            if (!videos.isNullOrEmpty())
+                adapter.submitList(videos)
         }
-        model.status.observe(viewLifecycleOwner) { status ->
-            if (status !is NetworkApiStatus.Error) return@observe
-            compatActivity()?.delayed(500) {
-                setNotBusy()
-                if (adapter.itemCount == 0) return@delayed
-                val msgId = if (status is NetworkApiStatus.ConnectionError) R.string.no_connection else R.string.some_error
-                view?.longSnackbar(msgId)?.apply {
-                    if (status !is NetworkApiStatus.ConnectionError)
-                        setAction(R.string.details) { activity!!.alert(Utils.formatError(msgId, status.err)) { cancelButton { dismiss() } }.show() }
+        model.statusEvent.observe(viewLifecycleOwner) { status ->
+            info("observe status: $status, model status: ${model.status.value}," +
+                    " view lifecycle state: ${viewOwner?.lifecycle?.currentState}")
+            status ?: return@observe
+            if (status == NetworkApiStatus.Loading) {
+                busy.set(true)
+                return@observe
+            }
+            viewOwner?.delayed(700) {
+                model.consumeStatusEvent()
+                endRefresh()
+                // show errors in snackbars only when adapter contains data otherwise it'll be displayed by layout
+                if (status is NetworkApiStatus.Error && adapter.itemCount > 0) {
+                    val msgId = if (status is NetworkApiStatus.ConnectionError) R.string.no_connection else R.string.some_error
+                    view?.longSnackbar(msgId)?.apply {
+                        if (status !is NetworkApiStatus.ConnectionError)
+                            setAction(R.string.details) {
+                                materialAlert(Utils.formatError(msgId, status.err)) { setNegativeButton(R.string.close, null) }.show()
+                            }
+                    }
                 }
             }
         }
@@ -108,7 +112,7 @@ class ListingFragment : Fragment(), AnkoLogger {
         return binding.root
     }
 
-    private fun setNotBusy() {
+    private fun endRefresh() {
         busy.set(false)
         binding.refresh.isRefreshing = false
         binding.refresh.isEnabled = true
@@ -117,11 +121,10 @@ class ListingFragment : Fragment(), AnkoLogger {
     private fun refreshVideos() {
         if (busy.get()) return
         busy.set(true)
-        compatActivity()?.delayed(300, code = model::refresh)
+        delayed(200, code = model::refresh)
     }
 
     private fun playVideo(video: Video) {
-        if (busy.get()) return
         var intent = Intent(Intent.ACTION_VIEW, video.launchUri)
         if (intent.resolveActivity(app.packageManager) == null) {
             intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
@@ -130,6 +133,6 @@ class ListingFragment : Fragment(), AnkoLogger {
     }
 
     private val Video.launchUri : Uri
-        get() = Uri.parse("vnd.youtube:" + Uri.parse(url).getQueryParameter("v"))
+        get() = Uri.parse("vnd.youtube:" + url.toUri().getQueryParameter("v"))
 
 }

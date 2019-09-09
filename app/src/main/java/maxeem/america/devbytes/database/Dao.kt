@@ -9,10 +9,10 @@ import androidx.room.Query
 @Dao
 interface Dao {
 
-    @Query("SELECT * FROM videos")
-    fun getAll(): LiveData<List<DatabaseVideo>>
+    @Query("SELECT rowid, * FROM videos ORDER BY datetime(updated) DESC")
+    fun getAll(): LiveData<List<DatabaseVideoQuery>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg videos: DatabaseVideo)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertAll(vararg videos: DatabaseVideo) : List<Long>
 
 }

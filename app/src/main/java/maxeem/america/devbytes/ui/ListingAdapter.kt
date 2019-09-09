@@ -13,6 +13,11 @@ import maxeem.america.devbytes.domain.Video
 class ListingAdapter(private val playOnClick: (Video) -> Unit)
             : ListAdapter<Video, ListingAdapter.DevByteViewHolder>(DiffCallback) {
 
+    init {
+        setHasStableIds(true)
+    }
+    override fun getItemId(position: Int) = getItem(position)?.id ?: RecyclerView.NO_ID
+
     private companion object DiffCallback : DiffUtil.ItemCallback<Video>() {
         override fun areItemsTheSame(oldItem: Video, newItem: Video) = oldItem.url == newItem.url
         override fun areContentsTheSame(oldItem: Video, newItem: Video) = oldItem == newItem
