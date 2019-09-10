@@ -64,17 +64,16 @@ class ListingFragment : BaseFragment() {
         binding.refresh.setOnRefreshListener(::refreshVideos)
 
         val adapter = ListingAdapter(::playVideo)
-        binding.recycler.addItemDecoration(object: RecyclerView.ItemDecoration() {
+
+        binding.recycler.apply {
             val spanCount = resources.getInteger(R.integer.grid_spans)
-            val hGap = resources.getDimension(R.dimen.spans_gap_horizontal).toInt()
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                if (spanCount == 1) {
-                    super.getItemOffsets(outRect, view, parent, state)
-                } else {
+            if (spanCount > 1) addItemDecoration(object: RecyclerView.ItemDecoration() {
+                val hGap = resources.getDimension(R.dimen.spans_gap_horizontal).toInt()
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                     outRect.set(if (binding.recycler.getChildAdapterPosition(view) % spanCount != 0) hGap else 0, 0, 0, 0)
                 }
-            }
-        })
+            })
+        }
         binding.recycler.adapter = adapter
 
         model.videos.observe(viewLifecycleOwner) { videos ->
@@ -101,7 +100,6 @@ class ListingFragment : BaseFragment() {
                         if (adapter.itemCount > 0) return@delayed
                         val msgId = if (status is NetworkApiStatus.ConnectionError) R.string.no_connection else R.string.some_error
                         view?.longSnackbar(msgId)?.apply {
-//                            setAnchorView(R.id.msg)
                             if (status !is NetworkApiStatus.ConnectionError)
                                 setAction(R.string.details) {
                                     materialAlert(Utils.formatError(msgId, status.err)) { setNegativeButton(R.string.close, null) }.show()
@@ -130,9 +128,8 @@ class ListingFragment : BaseFragment() {
 
     private fun playVideo(video: Video) {
         var intent = Intent(Intent.ACTION_VIEW, video.launchUri)
-        if (intent.resolveActivity(app.packageManager) == null) {
+        if (intent.resolveActivity(app.packageManager) == null)
             intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
-        }
         startActivity(intent)
     }
 
