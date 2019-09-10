@@ -39,5 +39,6 @@
     <string name="details">Details</string>
     <string name="stat_videos_msg">Videos: %d</string>
     <string name="stat_update_msg">Updated: %s (%d)</string>
+    <string name="update_success">Data is up to date!</string>
     <string name="close">Close</string>
 </resources>

@@ -18,7 +18,7 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-<item name="android:windowFullscreen">true</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="fontFamily">@font/inder</item>
         <item name="android:fontFamily">@font/inder</item>
@@ -42,7 +42,7 @@
     </style>
 
     <style name="AppbarTheme" parent="AppTheme">
-        <item name="colorSurface">@color/primaryDark</item>
+        <item name="colorSurface">@color/background</item>
         <item name="colorOnSurface">@color/secondary</item>
     </style>
 

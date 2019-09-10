@@ -29,7 +29,6 @@ import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import maxeem.america.devbytes.R
 import maxeem.america.devbytes.app
@@ -39,7 +38,6 @@ import maxeem.america.devbytes.network.NetworkApiStatus
 import maxeem.america.devbytes.util.*
 import maxeem.america.devbytes.viewmodels.ListingViewModel
 import org.jetbrains.anko.design.longSnackbar
-import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 
 class ListingFragment : BaseFragment() {
@@ -67,12 +65,13 @@ class ListingFragment : BaseFragment() {
 
         val adapter = ListingAdapter(::playVideo)
         binding.recycler.addItemDecoration(object: RecyclerView.ItemDecoration() {
-            val gap = app.dip(8); val spanCount = (binding.recycler.layoutManager as GridLayoutManager).spanCount
+            val spanCount = resources.getInteger(R.integer.grid_spans)
+            val hGap = resources.getDimension(R.dimen.spans_gap_horizontal).toInt()
             override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 if (spanCount == 1) {
                     super.getItemOffsets(outRect, view, parent, state)
                 } else {
-                    outRect.set(if (binding.recycler.getChildAdapterPosition(view) % spanCount == 0) gap else 0, 0, gap, 0)
+                    outRect.set(if (binding.recycler.getChildAdapterPosition(view) % spanCount != 0) hGap else 0, 0, 0, 0)
                 }
             }
         })
@@ -96,13 +95,18 @@ class ListingFragment : BaseFragment() {
                 model.consumeStatusEvent()
                 endRefresh()
                 // show errors in snackbars only when adapter contains data otherwise it'll be displayed by layout
-                if (status is NetworkApiStatus.Error && adapter.itemCount > 0) {
-                    val msgId = if (status is NetworkApiStatus.ConnectionError) R.string.no_connection else R.string.some_error
-                    view?.longSnackbar(msgId)?.apply {
-                        if (status !is NetworkApiStatus.ConnectionError)
-                            setAction(R.string.details) {
-                                materialAlert(Utils.formatError(msgId, status.err)) { setNegativeButton(R.string.close, null) }.show()
-                            }
+                when (status) {
+                    NetworkApiStatus.Success -> view?.longSnackbar(R.string.update_success)
+                    is NetworkApiStatus.Error -> {
+                        if (adapter.itemCount > 0) return@delayed
+                        val msgId = if (status is NetworkApiStatus.ConnectionError) R.string.no_connection else R.string.some_error
+                        view?.longSnackbar(msgId)?.apply {
+//                            setAnchorView(R.id.msg)
+                            if (status !is NetworkApiStatus.ConnectionError)
+                                setAction(R.string.details) {
+                                    materialAlert(Utils.formatError(msgId, status.err)) { setNegativeButton(R.string.close, null) }.show()
+                                }
+                        }
                     }
                 }
             }
