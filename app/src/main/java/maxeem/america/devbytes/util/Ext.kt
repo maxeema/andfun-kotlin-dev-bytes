@@ -13,9 +13,6 @@ import maxeem.america.devbytes.app
 
 val Any.hash get() = hashCode()
 
-fun Int.asString() = app.getString(this)
-fun Int.asString(vararg args: Any) = app.getString(this, *args)
-
 fun View.onClick(l: ()->Unit) = setOnClickListener { l() }
 
 fun Fragment.compatActivity() = activity as AppCompatActivity?

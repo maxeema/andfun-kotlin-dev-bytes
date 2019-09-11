@@ -21,6 +21,7 @@ import android.app.Application
 import android.os.Handler
 import maxeem.america.devbytes.util.Prefs
 import maxeem.america.devbytes.util.hash
+import maxeem.america.devbytes.util.pid
 import maxeem.america.devbytes.util.timeMillis
 import maxeem.america.devbytes.work.RefreshDataWorker
 import org.jetbrains.anko.AnkoLogger
@@ -36,7 +37,7 @@ class DevBytesApp : Application(), AnkoLogger {
     }
 
     init {
-        info("pid: ${android.os.Process.myPid()} - $hash $timeMillis init")
+        info("$pid - $hash $timeMillis init")
         _instance = this
     }
 
