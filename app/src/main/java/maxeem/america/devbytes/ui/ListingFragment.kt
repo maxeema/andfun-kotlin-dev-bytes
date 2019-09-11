@@ -94,10 +94,9 @@ class ListingFragment : BaseFragment() {
                 model.consumeStatusEvent()
                 endRefresh()
                 // show errors in snackbars only when adapter contains data otherwise it'll be displayed by layout
-                when (status) {
-                    NetworkApiStatus.Success -> view?.longSnackbar(R.string.update_success)
-                    is NetworkApiStatus.Error -> {
-                        if (adapter.itemCount > 0) return@delayed
+                when {
+                    status is NetworkApiStatus.Success -> view?.longSnackbar(R.string.update_success)
+                    status is NetworkApiStatus.Error && adapter.itemCount > 0 -> {
                         val msgId = if (status is NetworkApiStatus.ConnectionError) R.string.no_connection else R.string.some_error
                         view?.longSnackbar(msgId)?.apply {
                             if (status !is NetworkApiStatus.ConnectionError)
