@@ -69,6 +69,7 @@
                 app:title="@string/app_name"
                 app:titleTextColor="?colorPrimary"
                 app:menu="@menu/main_menu"
+                android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -77,11 +78,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="0dp"
-                app:layout_scrollFlags="scroll|snap"
+                app:layout_scrollFlags="scroll|snap|enterAlways"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="6dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="10dp"
                 android:alpha=".5">
 
                 <TextSwitcher
