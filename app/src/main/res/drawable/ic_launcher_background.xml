@@ -25,6 +25,6 @@
         android:fillColor="@color/primaryDark"
         android:pathData="M0,0h750v750h-750z" />
     <path
-        android:fillColor="@color/secondaryVariant"
+        android:fillColor="@color/primaryVariant"
         android:pathData="M0,445h750v305h-750z" />
 </vector>

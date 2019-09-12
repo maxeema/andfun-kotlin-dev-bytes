@@ -18,7 +18,6 @@
 package maxeem.america.devbytes.ui
 
 import android.content.Intent
-import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,7 +28,6 @@ import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import maxeem.america.devbytes.R
 import maxeem.america.devbytes.app
 import maxeem.america.devbytes.databinding.FragmentListingBinding
@@ -65,16 +63,8 @@ class ListingFragment : BaseFragment() {
 
         val adapter = ListingAdapter(::playVideo)
 
-        binding.recycler.apply {
-            val spanCount = resources.getInteger(R.integer.grid_spans)
-            if (spanCount > 1) addItemDecoration(object: RecyclerView.ItemDecoration() {
-                val hGap = resources.getDimension(R.dimen.spans_gap_horizontal).toInt()
-                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                    outRect.set(if (binding.recycler.getChildAdapterPosition(view) % spanCount != 0) hGap else 0, 0, 0, 0)
-                }
-            })
-        }
         binding.recycler.adapter = adapter
+        binding.recycler.setHasFixedSize(true)
 
         model.videos.observe(viewLifecycleOwner) { videos ->
             info("observe videos, size: ${videos?.size}, ids: ${videos.map { it.id }}" +
@@ -95,13 +85,17 @@ class ListingFragment : BaseFragment() {
                 endRefresh()
                 // show errors in snackbars only when adapter contains data otherwise it'll be displayed by layout
                 when {
-                    status is NetworkApiStatus.Success -> view?.longSnackbar(R.string.update_success)
+                    status is NetworkApiStatus.Success -> {
+                        binding.appbar.setExpanded(true)
+                        binding.recycler.scrollToPosition(0)
+                        view?.longSnackbar(R.string.update_success)
+                    }
                     status is NetworkApiStatus.Error && adapter.itemCount > 0 -> {
                         val msgId = if (status is NetworkApiStatus.ConnectionError) R.string.no_connection else R.string.some_error
                         view?.longSnackbar(msgId)?.apply {
                             if (status !is NetworkApiStatus.ConnectionError)
                                 setAction(R.string.details) {
-                                    materialAlert(Utils.formatError(msgId, status.err)) { setNegativeButton(R.string.close, null) }.show()
+                                    materialAlertError(Utils.formatError(msgId, status.err)) { setNegativeButton(R.string.close, null) }.show()
                                 }
                         }
                     }

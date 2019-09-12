@@ -23,9 +23,14 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
+@BindingAdapter("goneIf")
+fun View.goneIf(it: Boolean?) {
+    visibility = if (it == true) View.GONE else View.VISIBLE
+}
+
 @BindingAdapter("visibleOn")
-fun View.visibleOn(it: Boolean) {
-    visibility = if (it) View.VISIBLE else View.INVISIBLE
+fun View.visibleOn(it: Boolean?) {
+    visibility = if (it == true) View.VISIBLE else View.INVISIBLE
 }
 
 @BindingAdapter("srcOf")

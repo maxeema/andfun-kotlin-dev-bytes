@@ -26,12 +26,14 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:theme="@style/AccentElevationOverlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
         app:cardElevation="1dp"
-        android:layout_marginBottom="4dp">
+        android:layout_marginEnd="@dimen/listing_item_margin_horizontal"
+        android:layout_marginTop="@dimen/listing_item_margin_top"
+        android:layout_marginBottom="@dimen/listing_item_margin_bottom">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_play_circle_outline_48dp"
-                android:tint="@color/accent"
+                android:tint="?colorAccent"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintStart_toStartOf="@+id/start_well"
                 app:layout_constraintTop_toTopOf="@+id/title" />
@@ -69,9 +71,8 @@
                 android:layout_marginTop="16dp"
                 android:text="@{video.title}"
                 android:textAlignment="viewStart"
-                android:textAllCaps="false"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textColor="?android:textColorPrimary"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/end_well"
                 app:layout_constraintStart_toEndOf="@+id/play_icon"
@@ -87,7 +88,8 @@
                 android:text="@{video.shortDescription}"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textAppearance="?textAppearanceBody2"
+                android:textColor="?android:textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/end_well"
                 app:layout_constraintStart_toStartOf="@+id/start_well"
@@ -114,7 +116,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="@{ video.date }"
-                android:textColor="@color/primaryVariant"
+                android:textAppearance="?textAppearanceCaption"
+                android:textColor="?android:textColorSecondary"
+                android:alpha=".5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/end_well"
                 app:layout_constraintTop_toBottomOf="@+id/description"
@@ -126,7 +130,7 @@
             android:id="@+id/clickableOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground" />
+            android:background="?selectableItemBackground" />
 
     </com.google.android.material.card.MaterialCardView>
 

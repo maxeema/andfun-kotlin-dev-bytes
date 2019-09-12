@@ -18,16 +18,13 @@
 
 <resources>
 
-    <color name="background">#323232</color>
+    <color name="windowBackground">#2f2f2f</color>
 
-    <color name="primary">#DD2C00</color>
-    <color name="primaryVariant">#c43c00</color>
-    <color name="primaryDark">#222222</color>
+    <color name="primary">#3ddc84</color>
+    <color name="primaryVariant">#22B162</color>
     <color name="onPrimary">#000000</color>
 
-    <color name="secondary">#3ddc84</color>
-    <color name="secondaryVariant">#22B162</color>
-    <color name="onSecondary">#000000</color>
+    <color name="primaryDark">#222222</color>
 
     <color name="accent">#00B8D4</color>
 

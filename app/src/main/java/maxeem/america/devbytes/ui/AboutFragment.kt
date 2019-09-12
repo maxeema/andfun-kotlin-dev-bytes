@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import maxeem.america.devbytes.R
 import maxeem.america.devbytes.app
 import maxeem.america.devbytes.databinding.FragmentAboutBinding
 import maxeem.america.devbytes.packageInfo
-import maxeem.america.devbytes.util.*
+import maxeem.america.devbytes.util.asString
+import maxeem.america.devbytes.util.hash
+import maxeem.america.devbytes.util.onClick
+import maxeem.america.devbytes.util.timeMillis
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -22,10 +24,6 @@ class AboutFragment : Fragment(), AnkoLogger {
         = FragmentAboutBinding.inflate(inflater, container, false).apply {
             info("$hash $timeMillis onCreateView, savedInstanceState: $savedInstanceState")
             lifecycleOwner = viewLifecycleOwner
-            compatActivity()?.apply {
-                setSupportActionBar(toolbar)
-                NavigationUI.setupActionBarWithNavController(this, findNavController())
-            }
             toolbar.setNavigationOnClickListener {
                 findNavController().navigate(AboutFragmentDirections.actionAboutFragmentPop())
             }

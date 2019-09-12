@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <integer name="grid_spans">1</integer>
+
+    <integer name="listing_spans">2</integer>
+
 </resources>
