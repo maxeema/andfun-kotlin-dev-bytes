@@ -18,14 +18,33 @@
 
 <resources>
 
+    <!-- Android/Google - https://www.youtube.com/watch?v=-2w7RKAlKTs -->
+    <color name="Emerald">#3ddc84</color>
+    <color name="GoogleBlue">#4285f4</color>
+
+<!--    <color name="primary">@color/Emerald</color>-->
+<!--    <color name="secondary">@color/GoogleBlue</color>-->
+    <color name="secondary2">#f86734</color>
+    <color name="tertiary1">#073042</color>
+    <color name="tertiary2">#d7effe</color>
+    <color name="tertiary3">#eff7cf</color>
+
+    <!-- App -->
     <color name="windowBackground">#2f2f2f</color>
 
-    <color name="primary">#3ddc84</color>
-    <color name="primaryVariant">#22B162</color>
+    <color name="primary">#80b4ff</color>
+    <color name="primaryVariant">@color/GoogleBlue</color>
     <color name="onPrimary">#000000</color>
 
-    <color name="primaryDark">#212121</color>
+    <color name="secondary">@color/Emerald</color>
+    <color name="secondaryVariant">#00a956</color>
+    <color name="onSecondary">#000000</color>
 
-    <color name="accent">#00B8D4</color>
+    <color name="primaryDark">#212121</color>
+    <color name="accent">@color/secondary2</color>
+    <color name="links">#03DAC6</color>
+
+    <color name="error">#f44336</color>
+    <color name="onError">#000000</color>
 
 </resources>

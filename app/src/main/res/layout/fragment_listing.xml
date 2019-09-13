@@ -63,11 +63,13 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
-                app:popupTheme="@style/AccentElevationOverlay"
+                app:popupTheme="@style/PrimaryElevationOverlay"
                 android:id="@+id/toolbar"
                 app:layout_scrollFlags="scroll|snap"
-                app:title="@string/app_name"
+                android:paddingStart="6dp"
+                app:title="@string/app_title"
                 app:titleTextColor="?colorPrimary"
+                app:navigationIcon="@drawable/ic_android_robot"
                 app:menu="@menu/main_menu"
                 android:paddingTop="8dp"
                 android:layout_width="match_parent"
@@ -92,10 +94,10 @@
                     android:layout_height="wrap_content"
                     android:inAnimation="@android:anim/fade_in">
                     <TextView
-                        android:textAppearance="?textAppearanceSubtitle2"
-                        tools:text="@string/stat_videos_msg"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?textAppearanceSubtitle2"
+                        tools:text="@string/stat_videos_msg" />
                     <TextView
                         android:textAppearance="?textAppearanceSubtitle2"
                         android:layout_width="wrap_content"

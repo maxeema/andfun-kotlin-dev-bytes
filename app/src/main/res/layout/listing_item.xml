@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_play_circle_outline_48dp"
-                android:tint="?colorAccent"
+                android:tint="?colorPrimaryVariant"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintStart_toStartOf="@+id/start_well"
                 app:layout_constraintTop_toTopOf="@+id/title" />

@@ -6,6 +6,7 @@ import maxeem.america.devbytes.app
 
 object Utils {
 
+    @JvmStatic
     fun fromHtml(s: String) = HtmlCompat.fromHtml(s, HtmlCompat.FROM_HTML_MODE_COMPACT)
 
     fun formatError(msgId: Int, err: Throwable) = formatError(msgId.asString(), err)

@@ -19,6 +19,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragment.AboutFragment">
 
+    <data>
+        <import type="maxeem.america.devbytes.util.Utils"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,8 +58,66 @@
             app:layout_constraintHeight_percent=".4"
             app:layout_constraintStart_toStartOf="@+id/well_start"
             app:layout_constraintTop_toTopOf="@+id/appbar"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.065"
             app:srcCompat="@drawable/ic_logo_about" />
+
+        <TextView
+            android:id="@+id/name"
+            style="?textAppearanceHeadline5"
+            android:text="@{ Utils.fromHtml(@string/app_name_bold(@color/primaryVariant, @color/primary)) }"
+            tools:text="@string/app_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="@+id/logo"
+            app:layout_constraintEnd_toStartOf="@+id/well_end2"
+            app:layout_constraintStart_toStartOf="@+id/well_start2"
+            app:layout_constraintWidth_default="wrap" />
+
+        <TextView
+            android:textAppearance="?textAppearanceCaption"
+            android:id="@+id/version"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha=".5"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintHeight_default="wrap"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toTopOf="@+id/name"
+            app:layout_constraintWidth_default="wrap"
+            tools:text="0.1" />
+
+        <TextView
+            android:id="@+id/description"
+            movementMethod="@{ android.text.method.LinkMovementMethod.getInstance() }"
+            textHtml="@{ @string/app_description }"
+            android:textAppearance="?textAppearanceBody2"
+            android:textColorLink="@color/links"
+            android:textColor="?android:textColorSecondary"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            app:layout_constrainedHeight="true"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@+id/well_end2"
+            app:layout_constraintHeight_default="wrap"
+            app:layout_constraintStart_toStartOf="@+id/well_start2"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="@string/app_description" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/google_play"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/app_on_google_play"
+            app:layout_constraintEnd_toStartOf="@+id/well_end"
+            app:layout_constraintStart_toStartOf="@+id/well_start"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/well_start"
@@ -86,10 +148,10 @@
             app:layout_constraintGuide_percent=".9" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/author"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:textAppearance="?textAppearanceSubtitle2"
             android:textColor="?colorPrimary"
-            android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rotation="90"
@@ -98,64 +160,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:text="@string/app_author" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textAppearance="?textAppearanceHeadline5"
-            android:textColor="?colorPrimaryVariant"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toBottomOf="@+id/logo"
-            app:layout_constraintEnd_toStartOf="@+id/well_end2"
-            app:layout_constraintStart_toStartOf="@+id/well_start2"
-            app:layout_constraintWidth_default="wrap" />
-
-        <TextView
-            android:textAppearance="?textAppearanceCaption"
-            android:id="@+id/version"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:alpha=".5"
-            app:layout_constrainedHeight="true"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintHeight_default="wrap"
-            app:layout_constraintStart_toEndOf="@+id/name"
-            app:layout_constraintTop_toTopOf="@+id/name"
-            app:layout_constraintWidth_default="wrap"
-            tools:text="0.1" />
-
-        <TextView
-            android:id="@+id/description"
-            movementMethod="@{ android.text.method.LinkMovementMethod.getInstance() }"
-            textHtml="@{ @string/app_description }"
-            android:textAppearance="?textAppearanceBody2"
-            android:textColorLink="?colorAccent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="14dp"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            app:layout_constrainedHeight="true"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@+id/well_end2"
-            app:layout_constraintHeight_default="wrap"
-            app:layout_constraintStart_toStartOf="@+id/well_start2"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            tools:text="@string/app_description" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/google_play"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/app_on_google_play"
-            app:layout_constraintEnd_toStartOf="@+id/well_end"
-            app:layout_constraintStart_toStartOf="@+id/well_start"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

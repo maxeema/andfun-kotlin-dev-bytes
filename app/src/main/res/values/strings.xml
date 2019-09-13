@@ -15,11 +15,16 @@
   ~
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Android DevBytes</string>
+    <string name="app_name_bold" formatted="false">
+        <![CDATA[
+            <font color="%s"><b>android</b></font> <font color="%s">DevBytes</font>
+        ]]>
+    </string>
     <string name="app_title">DevBytes</string>
     <string name="app_author">© Maxeem America, 2019</string>
-    <string name="app_description" formatted="false">
+    <string name="app_description" formatted="false" tools:ignore="TypographyDashes">
         <![CDATA[
             Made by taking <a href="https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012">Udacity course</a>
             <br/><br/>
