@@ -1,13 +1,8 @@
 package maxeem.america.devbytes.util
 
-import maxeem.america.devbytes.app
-
 /**
  * String extensions
  */
-
-fun Int.asString() = app.getString(this)
-fun Int.asString(vararg args: Any) = app.getString(this, *args)
 
 fun String.fromHtml() = Utils.fromHtml(this)
 
