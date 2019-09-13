@@ -20,30 +20,36 @@ package maxeem.america.devbytes.util
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.TooltipCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
-@BindingAdapter("goneIf")
-fun View.goneIf(it: Boolean?) {
-    visibility = if (it == true) View.GONE else View.VISIBLE
-}
-
-@BindingAdapter("visibleOn")
-fun View.visibleOn(it: Boolean?) {
-    visibility = if (it == true) View.VISIBLE else View.INVISIBLE
-}
 
 @BindingAdapter("srcOf")
-fun ImageView.srcOf(url: String) {
-    Glide.with(context).load(url).into(this)
-}
+fun ImageView.srcOf(url: String) { Glide.with(context).load(url).into(this) }
 
-@BindingAdapter("goneIfNotNull")
-fun View.goneIfNotNull(it: Any?) {
-    visibility = if (it != null) View.GONE else View.VISIBLE
-}
+@BindingAdapter("visibleOn")
+fun View.visibleOn(it: Boolean?) { visibility = if (it == true) View.VISIBLE else View.INVISIBLE }
+
+@BindingAdapter("goneIf")
+fun View.goneIf(it: Boolean?) { visibility = if (it == true) View.GONE else View.VISIBLE }
+
+//@BindingAdapter("goneIfNotNull")
+//fun View.goneIfNotNull(it: Any?) { visibility = if (it != null) View.GONE else View.VISIBLE }
 
 @BindingAdapter("textHtml")
 fun TextView.textHtml(str: String) {
     text = str.fromHtml()
 }
+
+@BindingAdapter("tooltipCompat")
+fun View.tooltipCompat(str: String) { TooltipCompat.setTooltipText(this, str) }
+
+//@BindingAdapter("onClickNotImplemented")
+//fun View.onClickNotImplemented(msg: CharSequence?) {
+//    onClick {
+//        longSnackbar(R.string.not_implemented).apply {
+//            anchorView = this@onClickNotImplemented
+//        }
+//    }
+//}
