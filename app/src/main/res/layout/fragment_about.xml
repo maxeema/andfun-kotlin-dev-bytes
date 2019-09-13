@@ -75,17 +75,15 @@
             app:layout_constraintWidth_default="wrap" />
 
         <TextView
-            android:textAppearance="?textAppearanceCaption"
             android:id="@+id/version"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:alpha=".5"
-            app:layout_constrainedHeight="true"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintHeight_default="wrap"
+            android:textAppearance="?textAppearanceCaption"
+            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="@+id/name"
-            app:layout_constraintWidth_default="wrap"
             tools:text="0.1" />
 
         <TextView
