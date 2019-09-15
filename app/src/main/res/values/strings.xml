@@ -36,9 +36,9 @@
     <string name="app_on_google_play">See on Google Play</string>
     <string name="about">About</string>
 
-    <string name="no_connection">Can\'t update. Check connection and retry.</string>
+    <string name="no_connection">Can\'t update. \nCheck connection and retry.</string>
     <string name="no_connection_tap">No Connection. Check Internet.\nTap icon to retry.</string>
-    <string name="some_error">Sorry, an error occurred</string>
+    <string name="some_error">Sorry. \nAn error occurred.</string>
     <string name="some_error_tap">An error occurred. Tap to retry.</string>
     <string name="retry">Retry</string>
     <string name="details">Details</string>

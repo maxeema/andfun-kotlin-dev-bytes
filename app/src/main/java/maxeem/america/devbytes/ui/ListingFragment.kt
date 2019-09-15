@@ -18,6 +18,7 @@
 package maxeem.america.devbytes.ui
 
 import android.content.Intent
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import maxeem.america.devbytes.R
 import maxeem.america.devbytes.app
 import maxeem.america.devbytes.databinding.FragmentListingBinding
@@ -64,7 +66,18 @@ class ListingFragment : BaseFragment() {
         val adapter = ListingAdapter(::playVideo)
 
         binding.recycler.adapter = adapter
-        binding.recycler.setHasFixedSize(true)
+        binding.recycler.apply {
+            val spanCount = resources.getInteger(R.integer.listing_spans)
+            addItemDecoration(object: RecyclerView.ItemDecoration() {
+                val recyclerStartOffset = resources.getDimension(R.dimen.listing_item_margin_horizontal).toInt()
+                val recyclerTopOffset = resources.getDimension(R.dimen.listing_item_margin_vertical).toInt()
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                    outRect.set( 0,
+                            if (binding.recycler.getChildLayoutPosition(view) < spanCount) recyclerTopOffset.times(1.5).toInt() else 0,
+                                 0, 0)
+                }
+            })
+        }
 
         model.videos.observe(viewLifecycleOwner) { videos ->
             info("observe videos, size: ${videos?.size}, ids: ${videos.map { it.id }}" +

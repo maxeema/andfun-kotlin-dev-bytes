@@ -26,101 +26,82 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:theme="@style/AccentElevationOverlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="1dp"
-        android:layout_marginEnd="@dimen/listing_item_margin_horizontal"
-        android:layout_marginTop="@dimen/listing_item_margin_top"
-        android:layout_marginBottom="@dimen/listing_item_margin_bottom">
+        tools:layout_marginTop="@dimen/listing_item_margin_vertical"
+        tools:layout_marginStart="@dimen/listing_item_margin_horizontal"
+        android:layout_marginBottom="@dimen/listing_item_margin_vertical"
+        android:layout_marginEnd="@dimen/listing_item_margin_horizontal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/start_well"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".05" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/end_well"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".95" />
-
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/play_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_play_circle_outline_48dp"
                 android:tint="?colorPrimaryVariant"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
-                app:layout_constraintStart_toStartOf="@+id/start_well"
-                app:layout_constraintTop_toTopOf="@+id/title" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title"
+                app:srcCompat="@drawable/ic_play_circle_outline_48dp" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/title"
+                style="@style/ExpressiveCourgetteFont"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@{video.title}"
+                android:layout_marginStart="16dp"
+                android:text="@{ video.title }"
                 android:textAlignment="viewStart"
                 android:textAppearance="?textAppearanceHeadline6"
-                android:textColor="?android:textColorPrimary"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/end_well"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/play_icon"
-                app:layout_constraintTop_toBottomOf="@id/thumbnail"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Android Developer News" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/thumbnail"
+                srcOf="@{ video.thumbnail }"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                app:layout_constrainedHeight="true"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintDimensionRatio="w,16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="wrap"
+                app:layout_constraintHeight_max="240dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@{video.shortDescription}"
                 android:textAlignment="viewStart"
-                android:textAllCaps="false"
                 android:textAppearance="?textAppearanceBody2"
                 android:textColor="?android:textColorSecondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/end_well"
-                app:layout_constraintStart_toStartOf="@+id/start_well"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                tools:text="Keep up to date with what's going on in the Android universe: every source; one place." />
-
-            <ImageView
-                android:id="@+id/thumbnail"
-                srcOf="@{video.thumbnail}"
-                android:layout_width="0dp"
-                android:layout_height="250dp"
-                android:adjustViewBounds="false"
-                android:cropToPadding="false"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="h,"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                app:layout_constraintTop_toBottomOf="@+id/thumbnail"
+                tools:text="Keep up to date with what's going on in the Android universe: every source; one place." />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:alpha=".5"
                 android:text="@{ video.date }"
                 android:textAppearance="?textAppearanceCaption"
-                android:textColor="?android:textColorSecondary"
-                android:alpha=".5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/end_well"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/description"
                 tools:text="Aug 20, 2019" />
 

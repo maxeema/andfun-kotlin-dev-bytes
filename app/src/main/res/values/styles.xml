@@ -18,9 +18,6 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="fontFamily">@font/inder</item>
-
-        <item name="android:fontFamily">@font/inder</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@color/windowBackground</item>
 
@@ -30,29 +27,118 @@
 
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/secondaryVariant</item>
-        <item name="colorOnSecondary">@color/onPrimary</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
 
         <item name="colorPrimaryDark">@color/primaryDark</item>
-        <item name="colorSurface">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
+
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
 
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/onError</item>
 
+<!--        <item name="colorOnBackground">@color/onBackground</item>-->
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
+        <item name="android:textColorTertiary">@color/textTertiary</item>
+
         <item name="snackbarStyle">@style/snackbar</item>
 
-        <item name="materialAlertDialogTheme">@style/Theme.MaterialComponents.Dialog.Alert</item>
+        <item name="shapeAppearanceSmallComponent">@style/shapeAppearanceSmallComponentOverride</item>
+
+        <item name="textAppearanceHeadline1">@style/textAppearanceHeadline1Override</item>
+        <item name="textAppearanceHeadline2">@style/textAppearanceHeadline2Override</item>
+        <item name="textAppearanceHeadline3">@style/textAppearanceHeadline3Override</item>
+        <item name="textAppearanceHeadline4">@style/textAppearanceHeadline4Override</item>
+        <item name="textAppearanceHeadline5">@style/textAppearanceHeadline5Override</item>
+        <item name="textAppearanceHeadline6">@style/textAppearanceHeadline6Override</item>
+        <item name="textAppearanceSubtitle1">@style/textAppearanceSubtitle1Override</item>
+        <item name="textAppearanceSubtitle2">@style/textAppearanceSubtitle2Override</item>
+        <item name="textAppearanceBody1">@style/textAppearanceBody1Override</item>
+        <item name="textAppearanceBody2">@style/textAppearanceBody2Override</item>
+        <item name="textAppearanceButton">@style/textAppearanceButtonOverride</item>
+        <item name="textAppearanceCaption">@style/textAppearanceCaptionOverride</item>
+        <item name="textAppearanceOverline">@style/textAppearanceOverlineOverride</item>
     </style>
 
     <!-- Styles -->
 
     <style name="snackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="animationMode">slide</item>
-        <item name="android:layout_margin"/>
-        <item name="android:layout_marginTop">@dimen/snackbar_margin_vertical</item>
-        <item name="android:layout_marginBottom">@dimen/snackbar_margin_vertical</item>
-        <item name="android:layout_marginStart">@dimen/snackbar_margin_horizontal</item>
-        <item name="android:layout_marginEnd">@dimen/snackbar_margin_horizontal</item>
+    </style>
+
+    <style name="shapeAppearanceSmallComponentOverride" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+    </style>
+
+    <style name="textAppearanceHeadline1Override" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/open_sans_light</item>
+    </style>
+    <style name="textAppearanceHeadline2Override" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/open_sans_light</item>
+    </style>
+    <style name="textAppearanceHeadline3Override" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/open_sans</item>
+    </style>
+    <style name="textAppearanceHeadline4Override" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/open_sans</item>
+    </style>
+    <style name="textAppearanceHeadline5Override" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/open_sans</item>
+    </style>
+    <style name="textAppearanceHeadline6Override" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/open_sans_semibold</item>
+    </style>
+    <style name="textAppearanceSubtitle1Override" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/open_sans</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+    <style name="textAppearanceSubtitle2Override" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+    <style name="textAppearanceBody1Override" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/lora</item>
+    </style>
+    <style name="textAppearanceBody2Override" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/lora</item>
+    </style>
+    <style name="textAppearanceButtonOverride" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/open_sans_semibold</item>
+    </style>
+    <style name="textAppearanceCaptionOverride" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/crimson_text</item>
+    </style>
+    <style name="textAppearanceOverlineOverride" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="fontFamily">@font/open_sans</item>
+    </style>
+
+    <!-- Fonts -->
+
+    <style name="ExpressiveCourgetteFont">
+        <item name="fontFamily">@font/courgette</item>
+    </style>
+    <style name="ExpressiveFredokaFont">
+        <item name="fontFamily">@font/fredoka_one</item>
+    </style>
+    <style name="BodyLoraFont">
+        <item name="fontFamily">@font/lora</item>
+    </style>
+    <style name="CaptionCrimsonFont">
+        <item name="fontFamily">@font/crimson_text</item>
+    </style>
+    <style name="LightFont">
+        <item name="fontFamily">@font/open_sans_light</item>
+    </style>
+    <style name="RegularFont">
+        <item name="fontFamily">@font/open_sans</item>
+    </style>
+    <style name="SemiBoldFont">
+        <item name="fontFamily">@font/open_sans_semibold</item>
+    </style>
+    <style name="BoldFont">
+        <item name="fontFamily">@font/open_sans_bold</item>
     </style>
 
     <!-- Themes -->

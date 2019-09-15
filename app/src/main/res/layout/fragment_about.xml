@@ -38,6 +38,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 app:title="@string/about"
+                app:titleTextColor="?android:textColorTertiary"
                 app:navigationIcon="?homeAsUpIndicator"
                 android:background="?colorPrimaryDark"
                 android:paddingTop="8dp"
@@ -46,7 +47,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/logo"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -61,9 +62,10 @@
             app:layout_constraintVertical_bias="0.065"
             app:srcCompat="@drawable/ic_logo_about" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/name"
-            style="?textAppearanceHeadline5"
+            android:theme="@style/ExpressiveFredokaFont"
+            android:textAppearance="?textAppearanceHeadline5"
             android:text="@{ Utils.fromHtml(@string/app_name_bold(@color/primaryVariant, @color/primary)) }"
             tools:text="@string/app_name"
             android:layout_width="0dp"
@@ -74,7 +76,7 @@
             app:layout_constraintStart_toStartOf="@+id/well_start2"
             app:layout_constraintWidth_default="wrap" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,18 +88,16 @@
             app:layout_constraintTop_toTopOf="@+id/name"
             tools:text="0.1" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/description"
             movementMethod="@{ android.text.method.LinkMovementMethod.getInstance() }"
             textHtml="@{ @string/app_description }"
-            android:textAppearance="?textAppearanceBody2"
-            android:textColorLink="@color/links"
-            android:textColor="?android:textColorSecondary"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="14dp"
             android:gravity="center_horizontal"
             android:textAlignment="center"
+            android:textAppearance="?textAppearanceBody2"
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@+id/well_end2"
@@ -108,7 +108,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/google_play"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="?materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -116,6 +116,19 @@
             app:layout_constraintEnd_toStartOf="@+id/well_end"
             app:layout_constraintStart_toStartOf="@+id/well_start"
             app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/author"
+            style="?borderlessButtonStyle"
+            android:textAppearance="?textAppearanceSubtitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rotation="90"
+            android:text="@string/app_author"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/well_end2"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/well_start"
@@ -144,20 +157,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".9" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/author"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:textAppearance="?textAppearanceSubtitle2"
-            android:textColor="?colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rotation="90"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/well_end2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/app_author" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
