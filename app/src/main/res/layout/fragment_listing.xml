@@ -58,6 +58,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
+            android:background="@{ model.hasData.booleanValue() ? @color/surface : @android:color/transparent }"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
