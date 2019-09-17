@@ -44,7 +44,7 @@ data class Video(
 {
 
     companion object {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
+        private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
     }
 
     val date by lazy(mode = LazyThreadSafetyMode.NONE) {

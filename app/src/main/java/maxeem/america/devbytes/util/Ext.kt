@@ -2,8 +2,8 @@ package maxeem.america.devbytes.util
 
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import maxeem.america.devbytes.app
+import maxeem.america.devbytes.ui.BaseFragment
 
 /**
  * Extensions
@@ -18,4 +18,4 @@ fun Int.asDrawable() = app.getDrawable(this)
 
 fun View.onClick(l: ()->Unit) = setOnClickListener { l() }
 
-fun Fragment.compatActivity() = activity as AppCompatActivity?
+fun BaseFragment.compatActivity() = activity as AppCompatActivity?

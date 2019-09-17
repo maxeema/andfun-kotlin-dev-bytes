@@ -17,15 +17,39 @@
 
 package maxeem.america.devbytes.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import maxeem.america.devbytes.R
+import maxeem.america.devbytes.util.hash
+import maxeem.america.devbytes.util.timeMillis
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.configuration
+import org.jetbrains.anko.info
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AnkoLogger {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    init {
+        info("$hash $timeMillis init")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        info("$hash $timeMillis onCreate, savedInstanceState: $savedInstanceState\n" +
+            " UI in night mode: ${UI.inNightMode} \n" +
+            " res isNight: ${resources.getBoolean(R.bool.isNight)} \n" +
+            " configuration ui mode night: ${configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK}\n" +
+            " delegate local night mode: ${delegate.localNightMode}\n" +
+            " app compat delegate default night mode: ${AppCompatDelegate.getDefaultNightMode()}")
+    }
+
+    override fun onNightModeChanged(mode: Int) { super.onNightModeChanged(mode)
+        info("$hash $timeMillis onNightModeChanged, mode: $mode")
+    }
+
+    override fun onDestroy() { super.onDestroy()
+        info("$hash $timeMillis onDestroy")
     }
 
 }

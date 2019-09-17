@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Android/Google - https://www.youtube.com/watch?v=-2w7RKAlKTs -->
+
+<resources>
+
+    <color name="Emerald">#3ddc84</color>
+    <color name="GoogleBlue">#4285f4</color>
+
+<!--    <color name="primary">@color/Emerald</color>-->
+<!--    <color name="secondary">@color/GoogleBlue</color>-->
+    <color name="secondary2">#f86734</color>
+    <color name="tertiary1">#073042</color>
+    <color name="tertiary2">#d7effe</color>
+    <color name="tertiary3">#eff7cf</color>
+
+</resources>

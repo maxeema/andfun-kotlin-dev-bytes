@@ -57,7 +57,10 @@ class ListingFragment : BaseFragment() {
         binding.busy = busy
 
         binding.toolbar.setOnMenuItemClickListener {
-            findNavController().navigate(AboutFragmentDirections.actionGlobalAboutFragment())
+            when (it.itemId) {
+                R.id.aboutFragment -> findNavController().navigate(AboutFragmentDirections.actionGlobalAboutFragment())
+                R.id.changeTheme   -> UI.changeTheme(resources)
+            }
             true
         }
 
@@ -69,7 +72,6 @@ class ListingFragment : BaseFragment() {
         binding.recycler.apply {
             val spanCount = resources.getInteger(R.integer.listing_spans)
             addItemDecoration(object: RecyclerView.ItemDecoration() {
-                val recyclerStartOffset = resources.getDimension(R.dimen.listing_item_margin_horizontal).toInt()
                 val recyclerTopOffset = resources.getDimension(R.dimen.listing_item_margin_vertical).toInt()
                 override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                     outRect.set( 0,

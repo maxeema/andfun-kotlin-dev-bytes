@@ -22,11 +22,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.TooltipCompat
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-
 
 @BindingAdapter("srcOf")
-fun ImageView.srcOf(url: String) { Glide.with(context).load(url).into(this) }
+fun ImageView.srcOf(url: String) = GlideHelper.loadUrlInto(context, url, this)
 
 @BindingAdapter("visibleOn")
 fun View.visibleOn(it: Boolean?) { visibility = if (it == true) View.VISIBLE else View.INVISIBLE }
@@ -34,13 +32,11 @@ fun View.visibleOn(it: Boolean?) { visibility = if (it == true) View.VISIBLE els
 @BindingAdapter("goneIf")
 fun View.goneIf(it: Boolean?) { visibility = if (it == true) View.GONE else View.VISIBLE }
 
-//@BindingAdapter("goneIfNotNull")
-//fun View.goneIfNotNull(it: Any?) { visibility = if (it != null) View.GONE else View.VISIBLE }
-
 @BindingAdapter("textHtml")
-fun TextView.textHtml(str: String) {
-    text = str.fromHtml()
-}
+fun TextView.textHtml(str: String) { text = str.fromHtml() }
+
+@BindingAdapter("goneIfNotNull")
+fun View.goneIfNotNull(it: Any?) { visibility = if (it != null) View.GONE else View.VISIBLE }
 
 @BindingAdapter("tooltipCompat")
 fun View.tooltipCompat(str: String) { TooltipCompat.setTooltipText(this, str) }

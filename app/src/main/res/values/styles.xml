@@ -17,9 +17,10 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/app_splash</item>
+
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@color/windowBackground</item>
 
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primaryVariant</item>
@@ -38,7 +39,9 @@
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/onError</item>
 
-<!--        <item name="colorOnBackground">@color/onBackground</item>-->
+        <item name="colorOnBackground">@color/onBackground</item>
+        <item name="colorControlNormal">@color/control</item>
+
         <item name="android:textColorPrimary">@color/textPrimary</item>
         <item name="android:textColorSecondary">@color/textSecondary</item>
         <item name="android:textColorTertiary">@color/textTertiary</item>

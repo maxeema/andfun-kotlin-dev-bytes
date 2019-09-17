@@ -1,6 +1,7 @@
 package maxeem.america.devbytes.ui
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -24,6 +25,9 @@ open class BaseFragment : Fragment(), AnkoLogger {
     }
     override fun onViewStateRestored(savedInstanceState: Bundle?) { super.onViewStateRestored(savedInstanceState)
         info("$hash $timeMillis onViewStateRestored, savedInstanceState: $savedInstanceState")
+    }
+    override fun onConfigurationChanged(newConfig: Configuration) { super.onConfigurationChanged(newConfig)
+        info("$hash $timeMillis onConfigurationChanged, newConfig: $newConfig")
     }
     override fun onDestroyView() { super.onDestroyView()
         info("$hash $timeMillis onDestroyView")

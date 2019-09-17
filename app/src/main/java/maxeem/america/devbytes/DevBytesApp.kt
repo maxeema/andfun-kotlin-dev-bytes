@@ -37,11 +37,11 @@ class DevBytesApp : Application(), AnkoLogger {
     }
 
     init {
-        info("$pid - $hash $timeMillis init")
         _instance = this
     }
 
     override fun onCreate() { super.onCreate()
+        info("$pid $hash $timeMillis onCreate()")
         Prefs.init()
         app.handler.postDelayed(::delayedInit, 2000)
     }
