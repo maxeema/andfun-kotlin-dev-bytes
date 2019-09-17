@@ -16,6 +16,8 @@ periodic work. In this app it's used to setup a daily background data sync.
 
 ![Screenshot1](screenshots/screen_1.png) ![Screenshot2](screenshots/screen_2.png)
 
+![Screenshot1_light](screenshots/screen_1_light.png) ![Screenshot2_light](screenshots/screen_2_light.png)
+
 
 ## How to use this repo while taking the course
 
