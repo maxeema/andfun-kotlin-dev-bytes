@@ -72,11 +72,10 @@ class ListingFragment : BaseFragment() {
         binding.recycler.apply {
             val spanCount = resources.getInteger(R.integer.listing_spans)
             addItemDecoration(object: RecyclerView.ItemDecoration() {
-                val recyclerTopOffset = resources.getDimension(R.dimen.listing_item_margin_vertical).toInt()
+                val recyclerVerticalOffset = resources.getDimension(R.dimen.listing_item_margin_vertical).toInt()
                 override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-                    outRect.set( 0,
-                            if (binding.recycler.getChildLayoutPosition(view) < spanCount) recyclerTopOffset.times(1.5).toInt() else 0,
-                                 0, 0)
+                    outRect.top = if (binding.recycler.getChildLayoutPosition(view) < spanCount) recyclerVerticalOffset.times(1.5).toInt() else 0
+                    outRect.bottom = if (binding.recycler.getChildAdapterPosition(view) < adapter.itemCount-spanCount) 0 else recyclerVerticalOffset.times(2)
                 }
             })
         }
