@@ -13,7 +13,7 @@ import org.jetbrains.anko.info
 object UI : AnkoLogger {
 
     val inNightMode get() = when (val mode = getDefaultNightMode()) {
-        MODE_NIGHT_UNSPECIFIED
+        MODE_NIGHT_UNSPECIFIED or MODE_NIGHT_FOLLOW_SYSTEM
              -> isAppUiNightMode
         else -> mode == MODE_NIGHT_YES
     }
@@ -26,16 +26,16 @@ object UI : AnkoLogger {
                 AppCompatDelegate.getDefaultNightMode(): ${AppCompatDelegate.getDefaultNightMode()}
                 inNightMode: $inNightMode
             """)
-        val newMode = if (inNightMode) MODE_NIGHT_NO else MODE_NIGHT_YES
-        info(" newMode: $newMode")
-        setDefaultNightMode(newMode)
+        val newNightMode = if (inNightMode) MODE_NIGHT_NO else MODE_NIGHT_YES
+        info(" new night mode: $newNightMode")
+        setDefaultNightMode(newNightMode)
     }
 
     private val isAppUiNightMode get()
             = app.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
 //        val newMode = when(AppCompatDelegate.getDefaultNightMode()) {
-//             AppCompatDelegate.MODE_NIGHT_UNSPECIFIED ->
+//             AppCompatDelegate.MODE_NIGHT_UNSPECIFIED or MODE_NIGHT_FOLLOW_SYSTEM ->
 //                if (isAppUiNightMode) AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
 //            AppCompatDelegate.MODE_NIGHT_YES ->
 //                AppCompatDelegate.MODE_NIGHT_NO
