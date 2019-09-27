@@ -4,7 +4,7 @@
 
     <integer name="listing_spans">1</integer>
 
-    <dimen name="splash_width">266.1dp</dimen>
-    <dimen name="splash_height">150dp</dimen>
+    <dimen name="splash_width">177.4dp</dimen>
+    <dimen name="splash_height">100dp</dimen>
 
 </resources>
