@@ -45,13 +45,14 @@
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:3"
             app:layout_constraintEnd_toStartOf="@+id/well_end"
             app:layout_constraintHeight_max="240dp"
             app:layout_constraintHeight_percent=".4"
             app:layout_constraintStart_toStartOf="@+id/well_start"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
             app:layout_constraintVertical_bias="0.065"
-            app:srcCompat="@drawable/android_logo" />
+            app:srcCompat="@drawable/ic_android_robot" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/name"
