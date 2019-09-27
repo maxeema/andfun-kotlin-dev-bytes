@@ -38,7 +38,7 @@ class ListingViewModel : ViewModel(), AnkoLogger {
     private val repo = VideosRepository.instance
 
     val videos  = repo.videos
-    val hasData = videos.map { !it.isNullOrEmpty() }
+    val hasData = videos.map { !it.isNullOrEmpty() }.apply { asMutable().value = !videos.value.isNullOrEmpty()}
 
     val status = MutableLiveData<NetworkApiStatus?>().asImmutable()
     val statusEvent = status.map { it }
