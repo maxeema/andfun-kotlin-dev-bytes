@@ -39,7 +39,7 @@ import org.koin.core.inject
 class VideosRepositoryImpl private constructor() : VideosRepository, AnkoLogger, KoinComponent {
 
     companion object {
-        val instance by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+        val instance : VideosRepository by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             VideosRepositoryImpl()
         }
     }

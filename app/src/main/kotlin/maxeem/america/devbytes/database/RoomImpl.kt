@@ -24,7 +24,7 @@ import maxeem.america.devbytes.util.Conf
 abstract class DevBytesDatabaseImpl : DevBytesDatabase() {
 
     companion object {
-        val instance by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+        val instance : DevBytesDatabase by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             Room.databaseBuilder(app, DevBytesDatabase::class.java, Conf.Database.NAME).run {
                 fallbackToDestructiveMigration()
                 build()
