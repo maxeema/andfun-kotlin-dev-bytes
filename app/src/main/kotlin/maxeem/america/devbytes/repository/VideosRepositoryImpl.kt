@@ -24,7 +24,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import maxeem.america.devbytes.database.DevBytesDatabase
 import maxeem.america.devbytes.database.asDomainModel
-import maxeem.america.devbytes.network.Network
+import maxeem.america.devbytes.network.DevBytesService
 import maxeem.america.devbytes.network.asDatabaseModel
 import maxeem.america.devbytes.util.Conf
 import maxeem.america.devbytes.util.Prefs
@@ -44,6 +44,7 @@ class VideosRepositoryImpl private constructor() : VideosRepository, AnkoLogger,
         }
     }
 
+    private val net : DevBytesService by inject()
     private val db : DevBytesDatabase by inject()
     private val mutex = Mutex()
 
@@ -59,7 +60,7 @@ class VideosRepositoryImpl private constructor() : VideosRepository, AnkoLogger,
         }
     }
     private suspend fun refreshVideosImpl() = withContext(Dispatchers.IO) {
-        val playlist = Network.devbytes.getPlaylistAsync().await()
+        val playlist = net.getPlaylistAsync().await()
         val distinct = playlist.asDatabaseModel().distinctBy { it.url }
         val ids = db.videosDao.insertAll(*distinct.toTypedArray())
         Prefs.syncEvent.postValue(System.currentTimeMillis())

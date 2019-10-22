@@ -17,13 +17,22 @@
 
 package maxeem.america.devbytes.network
 
-import kotlinx.coroutines.Deferred
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import maxeem.america.devbytes.util.Conf
-import retrofit2.http.GET
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
-interface DevBytesService {
+object Network {
 
-    @GET(Conf.DevBytes.PLAYLIST)
-    fun getPlaylistAsync(): Deferred<NetworkVideoContainer>
+    private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    private val retrofit = Retrofit.Builder()
+            .baseUrl(Conf.DevBytes.BASE_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .build()
+
+    val devBytesService = retrofit.create(DevBytesService::class.java)
 
 }

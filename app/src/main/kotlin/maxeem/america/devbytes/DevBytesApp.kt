@@ -20,6 +20,7 @@ package maxeem.america.devbytes
 import android.app.Application
 import android.os.Handler
 import maxeem.america.devbytes.database.DevBytesDatabaseImpl
+import maxeem.america.devbytes.network.Network
 import maxeem.america.devbytes.repository.VideosRepositoryImpl
 import maxeem.america.devbytes.util.Prefs
 import maxeem.america.devbytes.util.hash
@@ -36,6 +37,7 @@ import org.koin.dsl.module
 val app = DevBytesApp.instance
 
 private val appModule = module {
+    single { Network.devBytesService }
     single { DevBytesDatabaseImpl.instance }
     single { VideosRepositoryImpl.instance }
 }
