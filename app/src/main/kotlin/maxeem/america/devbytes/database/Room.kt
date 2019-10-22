@@ -18,23 +18,11 @@
 package maxeem.america.devbytes.database
 
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import maxeem.america.devbytes.app
-import maxeem.america.devbytes.util.Conf
 
 @Database(entities = [DatabaseVideo::class], version = 2)
 abstract class DevBytesDatabase : RoomDatabase() {
 
     abstract val videosDao : Dao
-
-    companion object {
-        val instance by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            Room.databaseBuilder(app, DevBytesDatabase::class.java, Conf.Database.NAME).run {
-                fallbackToDestructiveMigration()
-                build()
-            }
-        }
-    }
 
 }

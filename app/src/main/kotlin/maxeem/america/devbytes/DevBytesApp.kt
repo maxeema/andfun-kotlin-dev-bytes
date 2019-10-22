@@ -19,6 +19,8 @@ package maxeem.america.devbytes
 
 import android.app.Application
 import android.os.Handler
+import maxeem.america.devbytes.database.DevBytesDatabaseImpl
+import maxeem.america.devbytes.repository.VideosRepositoryImpl
 import maxeem.america.devbytes.util.Prefs
 import maxeem.america.devbytes.util.hash
 import maxeem.america.devbytes.util.pid
@@ -26,8 +28,17 @@ import maxeem.america.devbytes.util.timeMillis
 import maxeem.america.devbytes.work.RefreshDataWorker
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 val app = DevBytesApp.instance
+
+private val appModule = module {
+    single { DevBytesDatabaseImpl.instance }
+    single { VideosRepositoryImpl.instance }
+}
 
 class DevBytesApp : Application(), AnkoLogger {
 
@@ -42,6 +53,10 @@ class DevBytesApp : Application(), AnkoLogger {
 
     override fun onCreate() { super.onCreate()
         info("$pid $hash $timeMillis onCreate()")
+        startKoin {
+            androidLogger(); androidContext(this@DevBytesApp)
+            modules(appModule)
+        }
         Prefs.init()
         app.handler.postDelayed(::delayedInit, 2000)
     }

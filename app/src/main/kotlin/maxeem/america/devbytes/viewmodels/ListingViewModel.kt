@@ -32,10 +32,12 @@ import maxeem.america.devbytes.util.thread
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.info
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class ListingViewModel : ViewModel(), AnkoLogger {
+class ListingViewModel : ViewModel(), AnkoLogger, KoinComponent {
 
-    private val repo = VideosRepository.instance
+    private val repo : VideosRepository by inject()
 
     val videos  = repo.videos
     val hasData = videos.map { !it.isNullOrEmpty() }.apply { asMutable().value = !videos.value.isNullOrEmpty()}

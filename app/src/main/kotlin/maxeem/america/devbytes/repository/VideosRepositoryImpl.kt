@@ -33,20 +33,24 @@ import maxeem.america.devbytes.util.thread
 import maxeem.america.devbytes.work.RefreshDataWorker
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class VideosRepository private constructor() : AnkoLogger {
+class VideosRepositoryImpl private constructor() : VideosRepository, AnkoLogger, KoinComponent {
 
     companion object {
         val instance by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            VideosRepository()
+            VideosRepositoryImpl()
         }
     }
 
-    private val db = DevBytesDatabase.instance
+    private val db : DevBytesDatabase by inject()
     private val mutex = Mutex()
 
+    override
     val videos = db.videosDao.getAll().map { it.asDomainModel() }
 
+    override
     suspend fun refreshVideos(byWhom: String) {
         info("$pid refresh videos by '$byWhom', mutex is ${if (mutex.isLocked) "locked" else "unlocked" }, on $thread")
         mutex.withLock {
@@ -62,7 +66,7 @@ class VideosRepository private constructor() : AnkoLogger {
         RefreshDataWorker.setDelayedWork(Conf.DevBytes.SYNC_INTERVAL, Conf.DevBytes.SYNC_TIME_UNIT)
         info(" got size: ${playlist.videos.size}," +
                 " distinct size: ${distinct.size}, on $thread" +
-                    "\n $db \n ${db.videosDao} \n inserted ids: $ids")
+                    "\n $db ${db.videosDao} \n inserted ids: $ids")
     }.let { Unit }
 
 }
