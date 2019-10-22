@@ -25,11 +25,14 @@ import maxeem.america.devbytes.util.pid
 import maxeem.america.devbytes.util.thread
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.util.concurrent.TimeUnit
 
-class RefreshDataWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, params), AnkoLogger {
+class RefreshDataWorker(ctx: Context, params: WorkerParameters)
+        : CoroutineWorker(ctx, params), KoinComponent, AnkoLogger {
 
-    private val repo = VideosRepository.instance
+    private val repo : VideosRepository by inject()
 
     override suspend fun doWork() =
         runCatching {
