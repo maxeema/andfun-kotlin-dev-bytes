@@ -59,15 +59,15 @@ class VideosRepositoryImpl private constructor() : VideosRepository, AnkoLogger,
             refreshVideosImpl()
         }
     }
-    private suspend fun refreshVideosImpl() = withContext(Dispatchers.IO) {
+    private suspend fun refreshVideosImpl() {
         val playlist = net.getPlaylistAsync().await()
-        val distinct = playlist.asDatabaseModel().distinctBy { it.url }
+        val distinct = withContext(Dispatchers.Default) { playlist.asDatabaseModel().distinctBy { it.url } }
         val ids = db.videosDao.insertAll(*distinct.toTypedArray())
         Prefs.syncEvent.postValue(System.currentTimeMillis())
         RefreshDataWorker.setDelayedWork(Conf.DevBytes.SYNC_INTERVAL, Conf.DevBytes.SYNC_TIME_UNIT)
         info(" got size: ${playlist.videos.size}," +
                 " distinct size: ${distinct.size}, on $thread" +
                     "\n $db ${db.videosDao} \n inserted ids: $ids")
-    }.let { Unit }
+    }
 
 }

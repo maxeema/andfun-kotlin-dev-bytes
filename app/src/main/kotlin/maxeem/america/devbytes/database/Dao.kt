@@ -13,6 +13,6 @@ interface Dao {
     fun getAll(): LiveData<List<DatabaseVideoQuery>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(vararg videos: DatabaseVideo) : List<Long>
+    suspend fun insertAll(vararg videos: DatabaseVideo) : List<Long>
 
 }
