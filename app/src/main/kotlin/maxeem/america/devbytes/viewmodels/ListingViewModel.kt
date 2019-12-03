@@ -25,10 +25,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import maxeem.america.devbytes.network.NetworkApiStatus
 import maxeem.america.devbytes.repository.VideosRepository
-import maxeem.america.devbytes.util.Prefs
-import maxeem.america.devbytes.util.asImmutable
-import maxeem.america.devbytes.util.asMutable
-import maxeem.america.devbytes.util.thread
+import maxeem.america.devbytes.util.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.info
@@ -43,8 +40,7 @@ class ListingViewModel : ViewModel(), AnkoLogger, KoinComponent {
     val hasData = videos.map { !it.isNullOrEmpty() }.apply { asMutable().value = !videos.value.isNullOrEmpty()}
 
     val status = MutableLiveData<NetworkApiStatus?>().asImmutable()
-    val statusEvent = status.map { it }
-    fun consumeStatusEvent() { statusEvent.asMutable().value = null }
+    val statusEvent = status.map { Consumable(it) }
 
     val lastSync  = Prefs.syncEvent.map { Prefs.lastSync }
     val syncCount = Prefs.syncEvent.map { Prefs.syncCount }

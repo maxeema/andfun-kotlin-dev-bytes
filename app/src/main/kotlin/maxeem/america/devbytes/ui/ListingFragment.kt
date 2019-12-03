@@ -89,17 +89,16 @@ class ListingFragment : BaseFragment() {
             if (!videos.isNullOrEmpty())
                 adapter.submitList(videos)
         }
-        model.statusEvent.observe(viewLifecycleOwner) { status ->
-            info("observe status: $status, model status: ${model.status.value}," +
+        model.statusEvent.observe(viewLifecycleOwner) {
+            info("observe status event, model status: ${model.status.value}," +
                     " view lifecycle state: ${viewOwner?.lifecycle?.currentState}")
-            status ?: return@observe
+            val status = it.consume() ?: return@observe
             if (status == NetworkApiStatus.Loading) {
                 busy.set(true)
                 return@observe
             }
             viewOwner?.lifecycleScope?.launch {
                 delay(700)
-                model.consumeStatusEvent()
                 endRefresh()
                 // show errors in snackbars only when adapter contains data otherwise it'll be displayed by layout
                 when {
