@@ -27,9 +27,12 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import maxeem.america.devbytes.R
 import maxeem.america.devbytes.app
 import maxeem.america.devbytes.databinding.FragmentListingBinding
@@ -94,7 +97,8 @@ class ListingFragment : BaseFragment() {
                 busy.set(true)
                 return@observe
             }
-            viewOwner?.delayed(700) {
+            viewOwner?.lifecycleScope?.launch {
+                delay(700)
                 model.consumeStatusEvent()
                 endRefresh()
                 // show errors in snackbars only when adapter contains data otherwise it'll be displayed by layout
@@ -130,7 +134,12 @@ class ListingFragment : BaseFragment() {
     private fun refreshVideos() {
         if (busy.get()) return
         busy.set(true)
-        delayed(200, code = model::refresh)
+        lifecycleScope.launch {
+            delay(200)
+            lifecycleScope.launchWhenCreated {
+                model.refresh()
+            }
+        }
     }
 
     private fun playVideo(video: Video) {
